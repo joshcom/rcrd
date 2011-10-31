@@ -12,7 +12,7 @@
 <% @karmas.each do |karma| %>
   <tr>
     <td><%= karma.name %></td>
-    <td><%= karma.points %></td>
+    <td><%= add_plus karma.points %></td>
     <td><%= link_to 'Show', karma %></td>
     <td><%= link_to 'Edit', edit_karma_path(karma) %></td>
     <td><%= link_to 'Destroy', karma, confirm: 'Are you sure?', method: :delete %></td>
