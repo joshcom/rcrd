@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyText
+  magnitude: 1.5
+  karma: 1
+
+two:
+  name: MyText
+  magnitude: 1.5
+  karma: 1
