@@ -1,4 +1,7 @@
 class RecordsController < ApplicationController
+
+  http_basic_authenticate_with :name => "jeffcarp", :password => "timanous"
+
   # GET /records
   # GET /records.json
   def index
