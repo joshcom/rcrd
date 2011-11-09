@@ -29,11 +29,11 @@ class RecordsController < ApplicationController
   def create
       
     @record = Record.new(params[:record])
-    @record.raw = params[:record][:name]
+    @record.raw = params[:record][:raw]
 
     puts "DEBUG OUTPUT ========================================="
     
-    things = params[:record][:name].split(',')
+    things = params[:record][:raw].split(',')
     things.each do |t|
       matches = t.match(/(\d*\.*\d*)(\D{2,}.*)/)
       @cat = Cat.new
@@ -78,7 +78,7 @@ class RecordsController < ApplicationController
   # PUT /records/1.json
   def update
     @record = Record.find(params[:id])
-    @record.raw = params[:record][:name]
+    @record.raw = params[:record][:raw]
     
     # return overall karma, then delete cat
     @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
@@ -90,7 +90,7 @@ class RecordsController < ApplicationController
     end
     @karma.save
     
-    things = params[:record][:name].split(',')
+    things = params[:record][:raw].split(',')
     things.each do |t|
       matches = t.match(/(\d*\.*\d*)(\D{2,}.*)/)
       @cat = Cat.new
