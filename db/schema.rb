@@ -13,34 +13,73 @@
 
 ActiveRecord::Schema.define(:version => 20111108190002) do
 
+  create_table "categories", :force => true do |t|
+    t.text      "name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
+
   create_table "cats", :force => true do |t|
-    t.text     "name"
-    t.float    "magnitude"
-    t.integer  "karma"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "record_id"
+    t.integer   "cat_id"
+    t.text      "name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "magnitude"
+    t.integer   "karma"
+    t.integer   "record_id"
+  end
+
+  create_table "cats_records", :id => false, :force => true do |t|
+    t.integer   "cat_id"
+    t.integer   "record_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
+
+  create_table "evil_wizards", :force => true do |t|
+    t.integer   "cat_id"
+    t.integer   "magnitude"
+    t.integer   "karma"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "karmas", :force => true do |t|
-    t.text     "name"
-    t.integer  "points"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.integer   "points"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "measures", :force => true do |t|
-    t.text     "name"
-    t.integer  "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text      "name"
+    t.integer   "value"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "records", :force => true do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "raw"
+    t.integer   "record_id"
+    t.integer   "name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.text      "raw"
+  end
+
+  create_table "sorcerers", :force => true do |t|
+    t.integer   "cat_id"
+    t.integer   "magnitude"
+    t.integer   "karma"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
+
+  create_table "wizards", :force => true do |t|
+    t.integer   "cat_id"
+    t.integer   "magnitude"
+    t.integer   "karma"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
 end
