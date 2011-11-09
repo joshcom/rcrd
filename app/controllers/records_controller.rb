@@ -29,6 +29,7 @@ class RecordsController < ApplicationController
   def create
       
     @record = Record.new(params[:record])
+    @record.raw = params[:record][:name]
 
     puts "DEBUG OUTPUT ========================================="
     
@@ -77,6 +78,46 @@ class RecordsController < ApplicationController
   # PUT /records/1.json
   def update
     @record = Record.find(params[:id])
+    @record.raw = params[:record][:name]
+    
+    # return overall karma, then delete cat
+    @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
+    @record.cats.each do |cat|
+      if cat.karma
+        @karma.value = @karma.value - cat.karma
+      end
+      cat.destroy
+    end
+    @karma.save
+    
+    things = params[:record][:name].split(',')
+    things.each do |t|
+      matches = t.match(/(\d*\.*\d*)(\D{2,}.*)/)
+      @cat = Cat.new
+      @cat.name = matches[2].strip
+      @cat.magnitude = matches[1] unless !matches[1] 
+      if @cat.magnitude && @cat.magnitude > 1
+        @cat.name = @cat.name.singularize
+      end
+      
+      # !
+      # because magnitudes are stored as ints, decimals are rounded off
+      
+      if Karma.exists?(:name => @cat.name)
+        @karma = Karma.find(:first, :conditions => ["name = ?", @cat.name])
+        if @cat.magnitude
+          @cat.karma = @karma.points*@cat.magnitude
+        else
+          @cat.karma = @karma.points
+        end
+        # update overall karma
+        @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
+        @karma.value += @cat.karma
+        @karma.save
+      end
+      
+      @record.cats << @cat
+    end
 
     respond_to do |format|
       if @record.update_attributes(params[:record])

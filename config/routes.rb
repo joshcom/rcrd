@@ -1,4 +1,4 @@
-Lasersphere::Application.routes.draw do
+Nassau::Application.routes.draw do
   resources :records
 
   get "records/index"
