@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.find(:all, :order => 'created_at DESC', :limit => 50)
+    @records = Record.find(:all, :order => 'created_at DESC')#, :limit => 50)
     @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
     
     @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
