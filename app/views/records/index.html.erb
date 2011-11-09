@@ -40,6 +40,7 @@ end
         ">
         <div class="timestamp">
           <%= record.created_at.strftime '%I:%M%p' %>
+          <%= record.raw %>
         </div>
         <% 
         record.cats.each do |c| 
@@ -61,6 +62,7 @@ end
             </span>
           <% end %>
         <% end %>
+        <span><%= link_to 'Edit', edit_record_path(record), :class => 'edit' %></span>
         <span><%= link_to 'Destroy', record, confirm: 'Are you sure?', method: :delete, :class => 'destroy' %></span>
       </div>
     <% end %>

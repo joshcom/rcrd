@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Lasersphere::Application.load_tasks
+Nassau::Application.load_tasks
