@@ -4,7 +4,9 @@ class CatsController < ApplicationController
   # GET /cats/name.json
   def show
     @name = params[:name]
-    @cats = Cat.find(:all, :conditions => ['name = "'+params[:name]+'"'])
+    if @cats = Cat.find(:all, :conditions => ['name = "'+params[:name]+'"'])
+    else @cats = null
+    end
 
     respond_to do |format|
       format.html # show.html.erb
