@@ -3,7 +3,7 @@ class CatsController < ApplicationController
   # GET /cats/name
   # GET /cats/name.json
   def show
-    @records = Record.find(:all, :joins => :cats, :conditions => ["cats.name=?", params[:name]])
+    @records = Record.find(:all, :order => 'created_at DESC', :joins => :cats, :conditions => ["cats.name=?", params[:name]])
     @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
     
     @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
