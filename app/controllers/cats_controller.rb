@@ -3,9 +3,11 @@ class CatsController < ApplicationController
   # GET /cats/name
   # GET /cats/name.json
   def show
-    @name = params[:name]
-    @cats = Cat.where(["\"name\" = '"+params[:name]+"'"])
-
+    @records = Record.find(:all, :joins => :cats, :conditions => ["cats.name=?", params[:name]])
+    @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
+    
+    @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
+	
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @cat }
