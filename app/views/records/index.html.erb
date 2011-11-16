@@ -20,7 +20,7 @@ end
 <div id="records">
 
   <% @record_days.each do |day, records| %>
-    <h2><%= day.strftime('%A') %> 
+    <h2><%= day.strftime('%A %B %d') %> 
         <span class="movement">total movement: <%= calculate_absolute(records) %></span>
         <span class="movement">end of day: <%= raw add_plus(calculate_movement(records).to_s) %></span>
     </h2>
