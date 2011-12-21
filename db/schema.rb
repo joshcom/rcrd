@@ -11,75 +11,49 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111108190002) do
-
-  create_table "categories", :force => true do |t|
-    t.text      "name"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20111220185659) do
 
   create_table "cats", :force => true do |t|
-    t.integer   "cat_id"
-    t.text      "name"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.integer   "magnitude"
-    t.integer   "karma"
-    t.integer   "record_id"
-  end
-
-  create_table "cats_records", :id => false, :force => true do |t|
-    t.integer   "cat_id"
-    t.integer   "record_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
-
-  create_table "evil_wizards", :force => true do |t|
-    t.integer   "cat_id"
-    t.integer   "magnitude"
-    t.integer   "karma"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.text     "name"
+    t.float    "magnitude"
+    t.integer  "karma"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "record_id"
   end
 
   create_table "karmas", :force => true do |t|
-    t.string    "name"
-    t.integer   "points"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.text     "name"
+    t.integer  "points"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "measures", :force => true do |t|
-    t.text      "name"
-    t.integer   "value"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.text     "name"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "records", :force => true do |t|
-    t.integer   "record_id"
-    t.integer   "name"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.text      "raw"
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "raw"
+    t.integer  "user_id"
   end
 
-  create_table "sorcerers", :force => true do |t|
-    t.integer   "cat_id"
-    t.integer   "magnitude"
-    t.integer   "karma"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
   end
 
-  create_table "wizards", :force => true do |t|
-    t.integer   "cat_id"
-    t.integer   "magnitude"
-    t.integer   "karma"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
+  add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
 end

@@ -1,14 +1,22 @@
 class RecordsController < ApplicationController
 
-  http_basic_authenticate_with :name => "jeffcarp", :password => "timanous"
+  before_filter :require_login
 
   # GET /records
   # GET /records.json
   def index
-    @records = Record.find(:all, :order => 'created_at DESC')
-    @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
+    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
     
-    @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
+    @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
+
+    puts "DEBUG OUTPUT ========================================="
+    puts current_user.id
+
+    @karma = Measure.find_or_create_by_name('overall')
+    if !@karma.value
+      @karma.value = 0
+      @karma.save
+    end
         
     @record ||= Record.new
     @record.created_at = Time.now.strftime("%H:%M %d/%m/%Y")
@@ -30,8 +38,6 @@ class RecordsController < ApplicationController
       
     @record = Record.new(params[:record])
     @record.raw = params[:record][:raw]
-
-    puts "DEBUG OUTPUT ========================================="
     
     things = params[:record][:raw].split(',')
     things.each do |t|
@@ -61,6 +67,8 @@ class RecordsController < ApplicationController
       
       @record.cats << @cat
     end
+    
+    @record.user_id = current_user.id
      
     respond_to do |format|
       if @record.save
@@ -121,7 +129,7 @@ class RecordsController < ApplicationController
 
     respond_to do |format|
       if @record.update_attributes(params[:record])
-        format.html { redirect_to @record, notice: 'Record was successfully updated.' }
+        format.html { redirect_to '/', notice: 'Record was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
