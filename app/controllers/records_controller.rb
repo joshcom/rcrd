@@ -2,6 +2,17 @@ class RecordsController < ApplicationController
 
   before_filter :require_login
 
+  def changeover
+     @records = Record.find(:all)
+     
+     @records.each do |r|
+       r.user_id = 2
+       r.save
+     end
+     
+     redirect_to base_url
+  end
+
   # GET /records
   # GET /records.json
   def index
