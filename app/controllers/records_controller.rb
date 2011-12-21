@@ -4,10 +4,11 @@ class RecordsController < ApplicationController
 
   def changeover
      @records = Record.find(:all)
-     
+     puts "DEBUG OUTPUT SAVED? ========================================="
      @records.each do |r|
-       r.user_id = 2
+       r.user_id = current_user.id
        r.save
+       puts r.raw + " saved"
      end
      
      redirect_to base_url
