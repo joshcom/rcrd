@@ -29,6 +29,9 @@ Nassau::Application.routes.draw do
   
   resources :karmas
   
+  # TEMP TEMP TEMP
+  get "changeover" => "records#changeover", :as => "changeover"
+  
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
