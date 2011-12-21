@@ -8,7 +8,8 @@ class RecordsController < ApplicationController
      @records.each do |r|
        r.user_id = current_user.id
        r.save
-       puts r.raw + " saved"
+       puts r.raw
+       puts " saved"
      end
      
      redirect_to base_url
