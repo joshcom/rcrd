@@ -1,4 +1,8 @@
 Nassau::Application.routes.draw do
+  get "sessions/new"
+
+  get "users/new"
+
   resources :records
 
   get "records/index"
@@ -24,6 +28,12 @@ Nassau::Application.routes.draw do
   end
   
   resources :karmas
+  
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "signup" => "users#new", :as => "signup"
+  resources :users
+  resources :sessions
 
   # Sample resource route with sub-resources:
   #   resources :products do
