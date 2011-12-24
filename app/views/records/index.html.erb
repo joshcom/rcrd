@@ -66,7 +66,7 @@
 </div>
 
 <% if current_user %>
-  Logged in as <%= current_user.email %>.
+  Logged in as <%= link_to current_user.email, edit_user_path(current_user) %>.
   <%= link_to "Log out", logout_path %>
 <% else %>
   <%= link_to "Sign up", signup_path %> or
