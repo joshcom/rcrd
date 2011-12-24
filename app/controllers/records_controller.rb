@@ -2,19 +2,6 @@ class RecordsController < ApplicationController
 
   before_filter :require_login
 
-  def changeover
-     @records = Record.find(:all)
-     puts "DEBUG OUTPUT SAVED? ========================================="
-     @records.each do |r|
-       r.user_id = current_user.id
-       r.save
-       puts r.raw
-       puts " saved"
-     end
-     
-     redirect_to base_url
-  end
-
   # GET /records
   # GET /records.json
   def index
@@ -32,7 +19,7 @@ class RecordsController < ApplicationController
     end
         
     @record ||= Record.new
-    @record.created_at = Time.now.strftime("%H:%M %d/%m/%Y")
+    @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
     
     respond_to do |format|
       format.html # index.html.erb
