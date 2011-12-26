@@ -17,6 +17,9 @@
   <div class="field">
     <%= f.text_field :created_at, :placeholder => "Created at" %>
   </div>
+
+  <%= f.hidden_field :time_zone, :value => current_user.time_zone %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -8,6 +8,7 @@ Nassau::Application.routes.draw do
   resources :records
 
   get "records/index"
+  match 'records/jellyfish' => 'records#jellyfish'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
