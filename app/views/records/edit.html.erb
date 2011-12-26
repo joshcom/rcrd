@@ -16,7 +16,7 @@
     <%= f.text_field :raw, :placeholder => "Categories" %>
   </div>
   <div class="field">
-    <%= f.text_field :created_at, :placeholder => "Created at" %>
+    <%= f.text_field :created_at, :placeholder => "Created at", :value => @record.created_at.in_time_zone(@record.time_zone) %>
   </div>
   <div class="field">
     <%= f.label :time_zone %>
