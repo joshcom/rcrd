@@ -4,17 +4,7 @@ class RecordsController < ApplicationController
 
   # GET /records
   # GET /records.json
-  def index
-  
-#     @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
-#     @records.each do |r|
-#       r.time_zone = 'Eastern Time (US & Canada)'
-#       r.save
-#       puts r.raw
-#     end
-#     puts "DONE DONE DONE"
-  
-  
+  def index 
     @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
     
     @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
