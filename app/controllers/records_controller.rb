@@ -6,13 +6,13 @@ class RecordsController < ApplicationController
   # GET /records.json
   def index
   
-    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
-    @records.each do |r|
-      r.time_zone = 'Eastern Time (US & Canada)'
-      r.save
-      puts r.raw
-    end
-    puts "DONE DONE DONE"
+#     @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
+#     @records.each do |r|
+#       r.time_zone = 'Eastern Time (US & Canada)'
+#       r.save
+#       puts r.raw
+#     end
+#     puts "DONE DONE DONE"
   
   
     @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
