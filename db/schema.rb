@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111226073948) do
+ActiveRecord::Schema.define(:version => 20120123093521) do
 
   create_table "cats", :force => true do |t|
     t.text     "name"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20111226073948) do
 
   create_table "karmas", :force => true do |t|
     t.text     "name"
-    t.integer  "points"
+    t.decimal  "points"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
