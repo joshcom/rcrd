@@ -36,7 +36,7 @@ module ApplicationHelper
       @records.each do |r|
         r.cats.each do |c|
           if @cat_name == c.name
-            csv << [c.name, r.created_at.strftime("%d/%m/%Y"), c.magnitude]
+            csv << [c.name, r.created_at.strftime("%m/%d/%Y"), c.magnitude]
           end
         end
       end
