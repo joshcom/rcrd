@@ -2,6 +2,24 @@ class RecordsController < ApplicationController
 
   before_filter :require_login
 
+  require 'csv'
+
+  def export
+    # CRITERIA : to select customer records
+    #=> Customer.active.latest.limit(100)
+    records = Record.limit(10)
+    filename ="records_#{Date.today.strftime('%d%b%y')}"
+    csv_data = CSV.generate do |csv|
+      # csv << Record.csv_header
+      records.each do |c| 
+        csv << 'stuff'
+      end
+    end 
+    send_data csv_data,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{filename}.csv"
+  end
+
   # GET /records
   # GET /records.json
   def index 
@@ -23,7 +41,7 @@ class RecordsController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @records, :include => :cats }
+      format.json { render json: @records, :include => :cats }      
     end
   end
 

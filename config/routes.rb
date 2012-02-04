@@ -1,4 +1,6 @@
 Nassau::Application.routes.draw do
+  get 'records/export'
+
   get "sessions/new"
 
   get "users/new"

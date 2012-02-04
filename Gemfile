@@ -13,7 +13,6 @@ group :development, :test do
 end
 
 gem 'sorcery'
-
 gem 'json'
 
 # Gems used only for assets and not required
