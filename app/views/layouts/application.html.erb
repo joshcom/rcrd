@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Nassau</title>
-  <%= stylesheet_link_tag    "application" %>
+  <title>rcrd</title>
+  <%= stylesheet_link_tag    'reset', 'records', 'iphone' %>
+  <%= stylesheet_link_tag    "iphone_wrap" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <% if request.user_agent.include?("iPhone") %>

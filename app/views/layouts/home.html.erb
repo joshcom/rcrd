@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>rcrd - record anything</title>
+  <%= stylesheet_link_tag    "reset" %>
+  <%= stylesheet_link_tag    "home" %>
+  <%= javascript_include_tag "home" %>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script type="text/javascript" src="http://use.typekit.com/xdj2rku.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <%= csrf_meta_tags %>
+  <% if request.user_agent.include?("iPhone") %>
+    <meta name="viewport" content="width=device-width, user-scalable=no /">
+  <% end %>
+</head>
+<body>
+<div id="wrap">
+  <%= yield %>
+</div>
+</body>
+</html>
