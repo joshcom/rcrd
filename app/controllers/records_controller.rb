@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
 
-  before_filter :require_login
+  before_filter :require_login, { :except => :index }
 
   require 'csv'
 
@@ -20,6 +20,7 @@ class RecordsController < ApplicationController
       :disposition => "attachment; filename=#{filename}.csv"
   end
 
+=begin
   # GET /records
   # GET /records.json
   def index 
@@ -43,6 +44,7 @@ class RecordsController < ApplicationController
       format.html { render :template => template }   
     end
   end
+=end
 
   # GET /records/1/edit
   def edit
