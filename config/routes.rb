@@ -44,5 +44,5 @@ Nassau::Application.routes.draw do
   resources :users
   resources :sessions
   
-  root :to => 'home#index'
+  root :to => 'records#index'
 end

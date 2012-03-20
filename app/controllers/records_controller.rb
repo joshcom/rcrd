@@ -23,25 +23,24 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index 
-    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')
-    
-    @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
-
-    puts "DEBUG OUTPUT ========================================="
-    puts Time.zone
-
-    @karma = Measure.find_or_create_by_name('overall')
-    if !@karma.value
-      @karma.value = 0
-      @karma.save
+    # kids, never do this at home
+    if current_user
+      @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')  
+      @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
+      @karma = Measure.find_or_create_by_name('overall')
+      if !@karma.value
+        @karma.value = 0
+        @karma.save
+      end
+      @record ||= Record.new
+      @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
+      template = 'records/index'
+    else
+      template = 'home/index'
     end
-        
-    @record ||= Record.new
-    @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
     
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @records, :include => :cats }      
+      format.html { render :template => template }   
     end
   end
 
