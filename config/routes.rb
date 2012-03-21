@@ -1,15 +1,14 @@
 Nassau::Application.routes.draw do
-  get 'records/export'
 
   get "sessions/new"
 
-  get "users/new"
-  
+  get "users/new"  
   get "users/edit"
+
+  get 'records' => 'home#index'
 
   resources :records
 
-  get "records/index"
   match 'records/jellyfish' => 'records#jellyfish'
   
   match 'cats/:name' => 'cats#show', :as => :cat

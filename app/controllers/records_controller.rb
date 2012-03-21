@@ -28,11 +28,13 @@ class RecordsController < ApplicationController
       
       @record = Record.new
       @record.raw = parts[1]
+      @record.created_at = parts[0]
+      @record.time_zone = "Eastern Time (US & Canada)"
       
       things = parts[1].split(',')
       things.each do |t|
         if t.include? ':'
-          t = '"'+t+'"'
+          t = t.to_s
         end
         matches = t.match(/(\d*\.*\d*)(\D{2,}.*)/)
         @cat = Cat.new
@@ -48,6 +50,8 @@ class RecordsController < ApplicationController
       @record.user_id = current_user.id
       @record.save
       
+      # STOP STOP
+#       break
     end
     
     render :nothing => true    
