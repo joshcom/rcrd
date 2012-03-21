@@ -19,7 +19,7 @@ class RecordsController < ApplicationController
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=#{filename}.csv"
   end
-  
+=begin
   def specialImport
     File.open('public/finagling.txt').each_line do |s|
       parts = s.split(' - ')
@@ -56,6 +56,7 @@ class RecordsController < ApplicationController
     
     render :nothing => true    
   end
+=end
 
 =begin
   # GET /records
