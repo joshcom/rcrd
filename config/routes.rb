@@ -14,6 +14,8 @@ Nassau::Application.routes.draw do
   
   match 'cats/:name' => 'cats#show', :as => :cat
 
+  # also temp temp
+  match 'specialimport' => 'records#specialImport'
 
   resources :records do
     resources :cats

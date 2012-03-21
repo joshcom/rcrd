@@ -19,6 +19,39 @@ class RecordsController < ApplicationController
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=#{filename}.csv"
   end
+  
+  def specialImport
+    File.open('public/finagling.txt').each_line do |s|
+      parts = s.split(' - ')
+      puts 'Time: ' + parts[0]
+      puts 'Record: ' + parts[1]
+      
+      @record = Record.new
+      @record.raw = parts[1]
+      
+      things = parts[1].split(',')
+      things.each do |t|
+        if t.include? ':'
+          t = '"'+t+'"'
+        end
+        matches = t.match(/(\d*\.*\d*)(\D{2,}.*)/)
+        @cat = Cat.new
+        @cat.name = matches[2].strip
+        @cat.magnitude = matches[1] unless !matches[1] 
+        if @cat.magnitude && @cat.magnitude > 1
+          @cat.name = @cat.name.singularize
+        end
+        
+        @record.cats << @cat
+      end
+      
+      @record.user_id = current_user.id
+      @record.save
+      
+    end
+    
+    render :nothing => true    
+  end
 
 =begin
   # GET /records
