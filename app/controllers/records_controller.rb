@@ -20,6 +20,7 @@ class RecordsController < ApplicationController
       :disposition => "attachment; filename=#{filename}.csv"
   end
 
+<<<<<<< HEAD
 =begin
   # GET /records
   # GET /records.json
@@ -41,7 +42,7 @@ class RecordsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { render :template => template }   
+      format.html { render :template => template }
     end
   end
 =end
