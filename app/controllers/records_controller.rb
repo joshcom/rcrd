@@ -20,7 +20,6 @@ class RecordsController < ApplicationController
       :disposition => "attachment; filename=#{filename}.csv"
   end
 
-<<<<<<< HEAD
 =begin
   # GET /records
   # GET /records.json
