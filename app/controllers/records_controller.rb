@@ -58,31 +58,25 @@ class RecordsController < ApplicationController
   end
 =end
 
-=begin
   # GET /records
   # GET /records.json
-  def index 
-    # kids, never do this at home
-    if current_user
-      @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')  
-      @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
-      @karma = Measure.find_or_create_by_name('overall')
-      if !@karma.value
-        @karma.value = 0
-        @karma.save
-      end
-      @record ||= Record.new
-      @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
-      template = 'records/index'
-    else
-      template = 'home/index'
+  def all
+
+    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')  
+    @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
+    @karma = Measure.find_or_create_by_name('overall')
+    if !@karma.value
+      @karma.value = 0
+      @karma.save
     end
+    @record ||= Record.new
+    @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
     
     respond_to do |format|
-      format.html { render :template => template }
+      format.html { render :template => 'records/index' }
     end
   end
-=end
+
 
   # GET /records/1/edit
   def edit
