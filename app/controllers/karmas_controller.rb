@@ -1,17 +1,12 @@
 class KarmasController < ApplicationController
-  # GET /karmas
-  # GET /karmas.json
+
+  before_filter :require_login
+
   def index
     @karmas = Karma.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @karmas }
-    end
+    @records = Record.order('created_at ASC')
   end
 
-  # GET /karmas/1
-  # GET /karmas/1.json
   def show
     @karma = Karma.find(params[:id])
 

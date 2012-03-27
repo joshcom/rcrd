@@ -19,49 +19,10 @@ class RecordsController < ApplicationController
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=#{filename}.csv"
   end
-=begin
-  def specialImport
-    File.open('public/finagling.txt').each_line do |s|
-      parts = s.split(' - ')
-      puts 'Time: ' + parts[0]
-      puts 'Record: ' + parts[1]
-      
-      @record = Record.new
-      @record.raw = parts[1]
-      @record.created_at = parts[0]
-      @record.time_zone = "Eastern Time (US & Canada)"
-      
-      things = parts[1].split(',')
-      things.each do |t|
-        if t.include? ':'
-          t = t.to_s
-        end
-        matches = t.match(/(\d*\.*\d*)(\D{2,}.*)/)
-        @cat = Cat.new
-        @cat.name = matches[2].strip
-        @cat.magnitude = matches[1] unless !matches[1] 
-        if @cat.magnitude && @cat.magnitude > 1
-          @cat.name = @cat.name.singularize
-        end
-        
-        @record.cats << @cat
-      end
-      
-      @record.user_id = current_user.id
-      @record.save
-      
-      # STOP STOP
-#       break
-    end
-    
-    render :nothing => true    
-  end
-=end
 
   # GET /records
   # GET /records.json
   def all
-
     @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')  
     @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
     @karma = Measure.find_or_create_by_name('overall')
