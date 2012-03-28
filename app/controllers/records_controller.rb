@@ -4,52 +4,21 @@ class RecordsController < ApplicationController
 
   require 'csv'
 
-  def export
-    # CRITERIA : to select customer records
-    #=> Customer.active.latest.limit(100)
-    records = Record.limit(10)
-    filename ="records_#{Date.today.strftime('%d%b%y')}"
-    csv_data = CSV.generate do |csv|
-      # csv << Record.csv_header
-      records.each do |c| 
-        csv << 'stuff'
-      end
-    end 
-    send_data csv_data,
-      :type => 'text/csv; charset=iso-8859-1; header=present',
-      :disposition => "attachment; filename=#{filename}.csv"
-  end
+  # index temporarily in HomeController
 
-  # GET /records
-  # GET /records.json
-  def all
-    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC')  
-    @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
-    @karma = Measure.find_or_create_by_name('overall')
-    if !@karma.value
-      @karma.value = 0
-      @karma.save
-    end
-    @record ||= Record.new
-    @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
-    
-    respond_to do |format|
-      format.html { render :template => 'records/index' }
-    end
-  end
-
-
-  # GET /records/1/edit
   def edit
     @record = Record.find(params[:id])
   end
 
-  # POST /records
-  # POST /records.json
-  def create
-      
+  def create      
     @record = Record.new(params[:record])
     @record.raw = params[:record][:raw]
+    
+    if !current_user.time_zone
+      current_user.time_zone = "Eastern Time (US & Canada)"
+      current_user.save
+      @record.time_zone = current_user.time_zone
+    end
     
     things = params[:record][:raw].split(',')
     things.each do |t|
@@ -64,17 +33,16 @@ class RecordsController < ApplicationController
       # !
       # because magnitudes are stored as ints, decimals are rounded off
       
-      if Karma.exists?(:name => @cat.name)
-        @karma = Karma.find(:first, :conditions => ["name = ?", @cat.name])
+      if Karma.exists?(['name=? AND user_id=?', @cat.name, current_user.id])
+        @karma = Karma.find(:first, :conditions => ['name=? AND user_id=?', @cat.name, current_user.id])
         if @cat.magnitude
           @cat.karma = @karma.points*@cat.magnitude
         else
           @cat.karma = @karma.points
         end
-        # update overall karma
-        @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
-        @karma.value += @cat.karma
-        @karma.save
+
+        current_user.karma += @cat.karma
+        current_user.save
       end
       
       @record.cats << @cat
@@ -101,14 +69,13 @@ class RecordsController < ApplicationController
     @record.raw = params[:record][:raw]
     
     # return overall karma, then delete cat
-    @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
     @record.cats.each do |cat|
       if cat.karma
-        @karma.value = @karma.value - cat.karma
+        current_user.karma = current_user.karma - cat.karma
       end
       cat.destroy
     end
-    @karma.save
+    current_user.save
     
     things = params[:record][:raw].split(',')
     things.each do |t|
@@ -123,17 +90,16 @@ class RecordsController < ApplicationController
       # !
       # because magnitudes are stored as ints, decimals are rounded off
       
-      if Karma.exists?(:name => @cat.name)
-        @karma = Karma.find(:first, :conditions => ["name = ?", @cat.name])
+      if Karma.exists?(['name=? AND user_id=?', @cat.name, current_user.id])
+        @karma = Karma.find(:first, :conditions => ['name=? AND user_id=?', @cat.name, current_user.id])
         if @cat.magnitude
           @cat.karma = @karma.points*@cat.magnitude
         else
           @cat.karma = @karma.points
         end
         # update overall karma
-        @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
-        @karma.value += @cat.karma
-        @karma.save
+        current_user.karma += @cat.karma
+        current_user.save
       end
       
       @record.cats << @cat
@@ -156,13 +122,12 @@ class RecordsController < ApplicationController
     @record = Record.find(params[:id])
     
     # update overall karma
-    @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
     @record.cats.each do |cat|
       if cat.karma
-        @karma.value = @karma.value - cat.karma
+        current_user.karma = current_user.karma - cat.karma
       end
     end
-    @karma.save
+    current_user.save
     
     @record.destroy
 
@@ -170,6 +135,20 @@ class RecordsController < ApplicationController
       format.html { redirect_to records_url }
       format.json { head :ok }
     end
+  end
+  
+  def export
+    records = Record.limit(10)
+    filename ="records_#{Date.today.strftime('%d%b%y')}"
+    csv_data = CSV.generate do |csv|
+      # csv << Record.csv_header
+      records.each do |c| 
+        csv << 'stuff'
+      end
+    end 
+    send_data csv_data,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{filename}.csv"
   end
     
 end

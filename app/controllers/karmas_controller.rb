@@ -3,8 +3,15 @@ class KarmasController < ApplicationController
   before_filter :require_login
 
   def index
-    @karmas = Karma.all
-    @records = Record.order('created_at ASC')
+    @karmas = current_user.karmas
+    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at ASC')  
+    
+    @karmas.each do |k|
+      if !k.user
+        puts "reassigning karma "+k.name+" to current user"
+        current_user.karmas << k
+      end
+    end
   end
 
   def show
@@ -37,6 +44,7 @@ class KarmasController < ApplicationController
   def create
   
     @karma = Karma.new(params[:karma])
+    current_user.karmas << @karma
 
     respond_to do |format|
       if @karma.save

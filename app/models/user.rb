@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   authenticates_with_sorcery!
   
   has_many :records
+  has_many :karmas
   
   attr_accessible :username, :email, :password, :password_confirmation, :time_zone
 
