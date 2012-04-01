@@ -6,7 +6,6 @@ class CatsController < ApplicationController
     @records = Record.find(:all, :order => 'created_at DESC', :joins => :cats, :conditions => ["cats.name=? AND user_id=?", params[:name], current_user.id])
     @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
     @cat_name = params[:name]
-    @karma = Measure.find(:first, :conditions => ["name = ?", 'overall'])
 	
     respond_to do |format|
       format.html # show.html.erb

@@ -1,6 +1,6 @@
 <div id="overall_karma">
-  <% posneg = @karma.value >= 0 ? 'positive' : 'negative' %>
-  <span class="<%= posneg %>"><%= add_plus @karma.value %></span>    
+  <% posneg = current_user.karma >= 0 ? 'positive' : 'negative' %>
+  <span class="<%= posneg %>"><%= add_plus current_user.karma %></span>    
 </div>
 
 <h1><a href="/">rcrd</a></h1>
