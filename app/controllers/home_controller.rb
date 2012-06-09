@@ -50,7 +50,9 @@ class HomeController < ApplicationController
       jon_drinks_this_month.each do |r|
         r.cats.each do |c|
           if c.name == 'drink'
-            if c.magnitude
+            if !c.magnitude
+              @jon_drinks_this_month += 1
+            else
               @jon_drinks_this_month += c.magnitude
             end
           end
