@@ -1,0 +1,37 @@
+<header class="clearfix">
+  <h1>
+    <a href="http://rcrd.org">
+      <img src="<%= image_path('logo.png') %>" alt="rcrd" title="Click to go to the rcrd homepage" />
+    </a>
+  </h1>
+  <span id="beta">beta</span>
+  <div id="login_status">
+    <% if current_user %>
+      Logged in as <%= link_to current_user.email, edit_user_path(current_user) %>.
+      <%= link_to "Log out", logout_path %>
+    <% else %>
+      <%= link_to "Sign up", signup_path %> or
+      <%= link_to "log in", login_path %>.
+    <% end %>
+  </div>
+</header>
+
+<div id="main">
+  <h1>Stats from Jeff and Jon.</h1>
+  
+  <section id="stats">
+    <div class="stat">
+      <h2><strong>Jeff:</strong> average workouts per week last 2 months</h2>
+      <h3><%= @jeff_avg_workouts_per_week_last_2_months %></h3>
+    </div>
+    <div class="stat">
+      <h2><strong>Jon:</strong> drinks this month<br/>
+      <h3><%= @jon_drinks_this_month %></h3>
+    </div>
+    <div class="stat">
+      <h2><strong>Jeff:</strong> drinks this month</h2>
+      <h3><%= @jeff_drinks_this_month %></h3>
+    </div>
+  </section>
+  
+</div>

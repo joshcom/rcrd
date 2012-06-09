@@ -5,15 +5,74 @@
 
 <h1><a href="/">rcrd</a></h1>
 
+
+<section id="karma_chart">
+  <div id="container" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+  <div class="chart">
+    <script>
+      var chart;
+      $(document).ready(function() {
+      	chart = new Highcharts.Chart({
+      		chart: {
+      			renderTo: 'container',
+      			type: 'spline'
+      		},
+      		title: {
+      			text: 'Karma chart for <%= @cat_name %>'
+      		},
+      		subtitle: {
+      		  text: 'For <%= current_user.email %>'
+      		},
+      		xAxis: {
+      			type: 'datetime',
+      		  labels: {
+            	formatter: function() {
+               return Highcharts.dateFormat('%b %e', this.value);
+              }
+            }
+      		},
+      		yAxis: {
+      			title: {
+      				text: 'Karma points'
+      			}
+      		},
+      		legend: {
+      		  enabled: false
+      		},
+      		tooltip: {
+      			formatter: function() {
+      					return Highcharts.dateFormat('%b %e %Y', this.x) +'<b>'+ this.y +'</b><%= @cat_name.pluralize %>';
+      			}
+      		},
+      		series: [{
+      			name: 'Karma to Date',
+      			// Define the data points. All series have a dummy year
+      			// of 1970/71 in order to be compared on the same x axis. Note
+      			// that in JavaScript, months start at 0 for January, 1 for February etc.			
+      			data: [
+              <%
+              @records_for_chart.each do |r|
+                r.cats.each do |c|
+                  if c.magnitude && c.name == @cat_name
+                    %>
+                    [Date.UTC(<%= r.created_at.strftime("%Y") %>, <%= r.created_at.strftime("%m").to_i - 1 %>, <%= r.created_at.strftime("%d") %>), <%= c.magnitude %> ],
+                    <%
+                  end
+                end
+              end
+              %>
+      			]
+      		}]
+      	});
+      });
+    </script>​
+  </div>
+</section>
+
 <div id="records">
 
   <% @record_days.each do |day, records| %>
-    <h2><%= day.strftime('%A %B %d') %> 
-        <span class="movement">
-          total movement: <%= calculate_absolute(records) %>
-          end of day: <%= raw add_plus(calculate_movement(records).to_s) %>
-        </span>
-    </h2>
+    <h2><%= day.strftime('%A %B %d, %Y') %></h2>
     <% for record in records %>
       <div class="record clearfix" style="
       <%

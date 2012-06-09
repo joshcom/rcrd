@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    if current_user != @user
+      redirect_to root_url
+    end
   end
 
   def create

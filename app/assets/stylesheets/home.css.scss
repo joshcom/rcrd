@@ -101,4 +101,25 @@
     }
   }
   
+  #stats {
+    .stat {
+      float: left;
+      width: 250px;
+      height: 250px;
+      padding: 24px;
+      h2 {
+        font-size: 24px;
+        color: #888;
+        font-weight: normal;
+        strong {
+          color: maroon;
+        }
+      }
+      h3 {
+        color: #222;
+        font-size: 48px;
+      }
+    }
+  }
+  
 }      

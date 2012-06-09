@@ -6,6 +6,7 @@ Nassau::Application.routes.draw do
   get "users/edit"
 
   get 'records' => 'home#index'
+  get 'stats' => 'home#stats'
   get 'records/all' => 'records#all'
 
   resources :records
