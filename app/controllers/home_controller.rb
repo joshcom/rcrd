@@ -58,6 +58,8 @@ class HomeController < ApplicationController
           end
         end
       end
+      
+      @jeff_in_n_out_this_year = Record.find(:all, :joins => :cats, :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.zone.now.beginning_of_year]).count
        
   end
 
