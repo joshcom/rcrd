@@ -12,6 +12,8 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+gem 'd3-rails'
+
 gem 'sorcery'
 gem 'json'
 

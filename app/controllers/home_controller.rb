@@ -24,6 +24,21 @@ class HomeController < ApplicationController
   end
   
   def stats
+  
+    @jeff = User.find_by_email 'gcarpenterv@gmail.com'
+  
+    in_n_out_burgers =  Record.find(:all, :joins => :cats, :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.now.beginning_of_year()])
+    
+    @burgers = Array.new
+    in_n_out_burgers.each do |b|
+      @burgers << [b.created_at.strftime("%Y"),
+                  b.created_at.strftime("%m").to_i - 1,
+                  b.created_at.strftime("%d") ]
+    end
+    
+      @jeff_in_n_out_this_year = Record.find(:all, :joins => :cats, :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.zone.now.beginning_of_year]).count
+      
+=begin
       @jeff = User.find_by_email 'gcarpenterv@gmail.com'
       @jon = User.find 5
       
@@ -59,8 +74,7 @@ class HomeController < ApplicationController
         end
       end
       
-      @jeff_in_n_out_this_year = Record.find(:all, :joins => :cats, :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.zone.now.beginning_of_year]).count
-       
+=end
   end
 
 end
