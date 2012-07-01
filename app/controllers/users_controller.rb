@@ -5,7 +5,13 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    # Find user
     @user = User.find(params[:id])
+    
+    # Generate Karma Dataset for header graph
+    @karma_dataset = get_karma_data
+
+    # Only current_user can edit user    
     if current_user != @user
       redirect_to root_url
     end

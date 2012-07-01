@@ -1,16 +1,16 @@
 class HomeController < ApplicationController
 
   def index 
-    # kids, never do this at home.
-    if current_user
-      @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at DESC', :limit => 30)  
+    # this is a terrible fix, I know
+    if current_user   
+      @records = Record.find(:all, :conditions => ["user_id=? AND created_at > ?", current_user.id, Date.today.beginning_of_week], :order => 'created_at DESC')  
       @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
-      if !current_user.karma
-        current_user.karma = 0
-        current_user.save
-      end
       @record ||= Record.new
       @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
+      
+      # Generate Karma Dataset for header graph
+      @karma_dataset = get_karma_data
+      
       template = 'records/index'
       layout = 'application'
     else      

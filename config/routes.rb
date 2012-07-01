@@ -8,6 +8,8 @@ Nassau::Application.routes.draw do
   get 'records' => 'home#index'
   get 'stats' => 'home#stats'
   get 'records/all' => 'records#all'
+  
+  get 'graphs' => 'graphs#index'
 
   resources :records
 

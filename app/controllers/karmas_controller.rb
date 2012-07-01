@@ -2,16 +2,12 @@ class KarmasController < ApplicationController
 
   before_filter :require_login
 
-  def index
+  def index    
+    # Fetch all user's karmas
     @karmas = current_user.karmas
-    @records = Record.find(:all, :conditions => ["user_id=?", current_user.id], :order => 'created_at ASC')  
     
-    @karmas.each do |k|
-      if !k.user
-        puts "reassigning karma "+k.name+" to current user"
-        current_user.karmas << k
-      end
-    end
+    # Generate Karma Dataset for header graph
+    @karma_dataset = get_karma_data
   end
 
   def show
