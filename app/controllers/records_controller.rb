@@ -52,7 +52,7 @@ class RecordsController < ApplicationController
      
     respond_to do |format|
       if @record.save
-        format.html { redirect_to records_url, notice: 'Record was successfully created.' }
+        format.html { redirect_to :root, notice: 'Record was successfully created.' }
         format.json { render json: @record, status: :created, location: @record }
       else        
         @records = Record.all
@@ -132,7 +132,7 @@ class RecordsController < ApplicationController
     @record.destroy
 
     respond_to do |format|
-      format.html { redirect_to records_url }
+      format.html { redirect_to :root }
       format.json { head :ok }
     end
   end

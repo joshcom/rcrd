@@ -26,8 +26,15 @@ class HomeController < ApplicationController
   def stats
   
     @jeff = User.find_by_email 'gcarpenterv@gmail.com'
+    @jon = User.find_by_email 'kenshin534@gmail.com'
   
-    in_n_out_burgers =  Record.find(:all, :joins => :cats, :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.now.beginning_of_year()])
+    # Jeff In-n-Out Bugers
+    # =================================
+  
+    in_n_out_burgers = Record.find(
+      :all, 
+      :joins => :cats, 
+      :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.now.beginning_of_year()])
     
     @burgers = Array.new
     in_n_out_burgers.each do |b|
@@ -37,6 +44,56 @@ class HomeController < ApplicationController
     end
     
       @jeff_in_n_out_this_year = Record.find(:all, :joins => :cats, :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'In-n-Out Burger', @jeff.id, Time.zone.now.beginning_of_year]).count
+
+      # Jeff Drinks This Year
+      # =================================
+
+    jeff_drinks = Record.find(
+      :all, 
+      :joins => :cats, 
+      :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'drink', @jeff.id, Time.now.beginning_of_year()])
+    
+    @jeff_drinks = Array.new
+    jeff_drinks.each do |b|
+      @jeff_drinks << [b.created_at.strftime("%Y"),
+                  b.created_at.strftime("%m").to_i - 1,
+                  b.created_at.strftime("%d") ]
+    end
+      
+      # Jeff Longest Time Sober
+      # =================================
+
+      jeff_all_drinks = Record.find(
+        :all, 
+        :joins => :cats, 
+        :conditions => ["cats.name=? AND records.user_id=? AND records.created_at >= ?", 'drink', @jeff.id, Time.now.beginning_of_year()],
+        :order => "records.created_at DESC"
+      )
+      
+      longest_time = 0
+      last_one = false
+      jeff_all_drinks.each do |r|
+        if last_one
+          this_difference = last_one - r.created_at
+          if this_difference > longest_time
+            longest_time = this_difference
+            @jeff_sober_end = last_one
+            @jeff_sober_begin = r.created_at 
+          end
+        end
+        last_one = r.created_at
+      end
+      
+      @sober_dates = Array.new
+      @sober_dates << [@jeff_sober_begin.strftime("%Y"),
+                  @jeff_sober_begin.strftime("%m").to_i - 1,
+                  @jeff_sober_begin.strftime("%d") ]
+      @sober_dates << [@jeff_sober_end.strftime("%Y"),
+                  @jeff_sober_end.strftime("%m").to_i - 1,
+                  @jeff_sober_end.strftime("%d") ]
+      
+      @jeff_longest_time_sober = (longest_time / 86400).to_i
+      
       
 =begin
       @jeff = User.find_by_email 'gcarpenterv@gmail.com'
