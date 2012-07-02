@@ -80,7 +80,7 @@
 	  stroke: #000;
 	}
 </style>
-
+<% if @karma_dataset %>
 	<script>
     var dataset = Array();
     <%
@@ -157,6 +157,7 @@
 	graph.append("svg:path").attr("d", line(data));
 
 </script>
+<% end %>
 
 
 
