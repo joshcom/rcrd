@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index 
     # this is a terrible fix, I know
     if current_user   
-      @records = Record.find(:all, :conditions => ["user_id=? AND created_at > ?", current_user.id, Date.today.beginning_of_week], :order => 'created_at DESC')  
+      @records = Record.find(:all, :conditions => ["user_id=? AND created_at > ?", current_user.id, 3.weeks.ago], :order => 'created_at DESC')  
       @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
       @record ||= Record.new
       @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")

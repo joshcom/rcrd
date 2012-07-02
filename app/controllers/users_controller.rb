@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.karma = 0
     if @user.save
       redirect_to root_url, :notice => "Signed up!"
     else
