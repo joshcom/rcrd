@@ -1,162 +1,196 @@
-// Place all the styles related to the Records controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* Layout
+======================================*/
 
 #wrap {
-
   font-family: "Lucida Grande", "Verdana", sans-serif;
+}
 
-  header {
-    .primary {
-      border-bottom: solid 1px #ccc;
-      margin: 0 0 12px;
-      padding: 0 0 12px;
-      h1 {
-        float: left;
-      }
-      #alpha {
-        font-size: 11px;
-      }
-      #overall_karma {
-        margin: 5px 0 0;
-/*         border-bottom: solid 1px #ccc; */
-/*         border-top: solid 1px #ccc; */
+/* Global
+======================================*/
+
+.positive {
+  color: #29d045;
+}
+.negative {
+  color: #dc1e10; 
+}
+
+/* Header
+======================================*/
+
+header {
+  .primary {
+    border-bottom: solid 1px #ccc;
+    margin: 0 0 12px;
+    padding: 0 0 12px;
+    h1 {
+      float: left;
+    }
+    #alpha {
+      font-size: 11px;
+    }
+    #overall_karma {
+      margin: 5px 0 0;
+      float: right;
+      span {
+        font-size: 29px;
+        font-weight: bold;
         float: right;
-        span {
-          font-size: 29px;
-          font-weight: bold;
-          float: right;
-        }
-        #karma_graph {
-          float: right;
-          margin: 0 6px 0 0;
-        }
+      }
+      #karma_graph {
+        float: right;
+        margin: 0 6px 0 0;
       }
     }
-    .secondary {
-      margin: 0 0 36px;
-      p.schtick {
-        font-size: 14px;
+  }
+  .secondary {
+    margin: 0 0 36px;
+    p.schtick {
+      font-size: 14px;
+      line-height: 20px;
+      margin: 0 0 6px;
+    }
+    ul.navigation {
+      margin: 0;
+      li {
+        float: left;
+        font-size: 11px;
         line-height: 20px;
-        margin: 0 0 6px;
-      }
-      ul.navigation {
-        margin: 0;
-        li {
-          float: left;
-          font-size: 11px;
-          line-height: 20px;
-          margin: 0 14px 0 0;
-          a {
-            font-weight: bold;
-            &:hover {
-              color: #444;
-            }
+        margin: 0 14px 0 0;
+        a {
+          font-weight: bold;
+          &:hover {
+            color: #444;
           }
         }
       }
     }
   }
-  
-  .positive {
-    color: #29d045;
+}
+
+/* Tools
+======================================*/
+
+#tools {
+  margin: 0 0 24px;
+  input[type='submit'] {
+    margin: 0 12px 0 0;
   }
-  .negative {
-    color: #dc1e10; 
-  }
-  
-  .box {
-    font-size: 12px;
-    background-color: #F9F9F9;
-    border: 1px solid #D0D0D0;
-    color: #002166;
-    margin: 0 0 14px;
-    padding: 10px;
-    
-    .new_record {
-      
-      input {
-        float: left;
-      }
-      input[type='text'] {
-      	width: 60%;
-        font-size: 15px;
-        padding: 3px;
-      }
-      input[type='submit'] {
-        font-size: 14px;
-        margin: 6px 12px 0;
-      }
+  a.button {
+    height: 23px;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    color: #333;
+    background-color: #eee;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    text-shadow: 1px 1px 0 #fff;
+    line-height: 23px;
+    padding: 0 10px 1px 8px;
+    &:hover {
+      color: #fff;
+      text-shadow: 0 -1px 0 #21609d;
+      border: solid 1px #25588b;
+      border-top: solid 1px #2f82d3;
+      background:-webkit-linear-gradient(#599BDC, #3072B3);
     }
-  }
+  }	
+}
+
+/* Box
+======================================*/
+.box {
+  font-size: 12px;
+  background-color: #F9F9F9;
+  border: 1px solid #D0D0D0;
+  color: #002166;
+  margin: 0 0 14px;
+  padding: 10px;
   
-  #records {
-    width: 100%;
-    margin: 0 0 14px;
+  .new_record {
     
-    h2 {
-      font-size: 18px;
-      margin: 12px 0 6px;
-      .movement {
-        font-size: 12px;
-        color: #999;
-      }
+    input {
+      float: left;
     }
-    
-    .record {
-      padding: 8px 10px;
-      
-      .timestamp {
-        float: left;
-        margin: 6px 16px 0 0;
-        color: #222;
-      }
-      
-      a.cat {
-        float: left;
-        background-color: #2560d4;
-        color: white;
-        padding: 4px 8px 7px;
-        margin: 0 0 0 16px;
-        border-radius: 6px;
-        border-bottom: solid 1px #6993e5;
-        border-top: solid 1px #183f8c;
-        &:hover {
-          opacity: 0.9;
-        }
-      }
-      
-      .karma {
-        float: left;
-        padding: 4px 5px 7px;
-        margin: 0 0 0 6px;
-        border-radius: 6px;
-        font-weight: bold;
-      }
-      .destroy {
-        float: right;
-        color: #999;
-        font-size: 11px;
-        padding: 7px 5px 0 0;
-      }
-      .edit {
-        float: right;
-        color: #999;
-        font-size: 11px;
-        padding: 7px 0 0;
-      }
-      .zone {
-        float: right;
-        color: #555;
-        font-size: 11px;
-        padding: 7px 10px 0 0;
-        
-      }
-    }        
+    input[type='text'] {
+    	width: 60%;
+      font-size: 15px;
+      padding: 3px;
+    }
+    input[type='submit'] {
+      font-size: 14px;
+      margin: 6px 12px 0;
+    }
   }
 }
 
-/* Responsive Web Design
+#records {
+  width: 100%;
+  margin: 0 0 14px;
+  
+  h2 {
+    font-size: 18px;
+    margin: 12px 0 6px;
+    .movement {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+  
+  .record {
+    padding: 8px 10px;
+    
+    .timestamp {
+      float: left;
+      margin: 6px 16px 0 0;
+      color: #222;
+    }
+    
+    a.cat {
+      float: left;
+      background-color: #2560d4;
+      color: white;
+      padding: 4px 8px 7px;
+      margin: 0 0 0 16px;
+      border-radius: 6px;
+      border-bottom: solid 1px #6993e5;
+      border-top: solid 1px #183f8c;
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+    
+    .karma {
+      float: left;
+      padding: 4px 5px 7px;
+      margin: 0 0 0 6px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .destroy {
+      float: right;
+      color: #999;
+      font-size: 11px;
+      padding: 7px 5px 0 0;
+    }
+    .edit {
+      float: right;
+      color: #999;
+      font-size: 11px;
+      padding: 7px 0 0;
+    }
+    .zone {
+      float: right;
+      color: #555;
+      font-size: 11px;
+      padding: 7px 10px 0 0;
+      
+    }
+  }        
+}
+
+/* Responsive Design
 ======================================*/
 
 @media screen {
