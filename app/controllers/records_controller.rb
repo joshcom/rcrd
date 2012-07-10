@@ -15,7 +15,7 @@ class RecordsController < ApplicationController
 
   def create      
     # Expire karma dataset cache
-    Rails.cache.delete("karma_data_user_"+current_user.id.to_s)
+    Rails.cache.delete("karma_data_"+current_user.id.to_s)
   
     @record = Record.new(params[:record])
     @record.raw = params[:record][:raw]
@@ -72,7 +72,7 @@ class RecordsController < ApplicationController
   # PUT /records/1.json
   def update
     # Expire karma dataset cache
-    Rails.cache.delete("karma_data_user_"+current_user.id.to_s)
+    Rails.cache.delete("karma_data_"+current_user.id.to_s)
   
     @record = Record.find(params[:id])
     @record.raw = params[:record][:raw]
@@ -129,7 +129,10 @@ class RecordsController < ApplicationController
   # DELETE /records/1.json
   def destroy
     @record = Record.find(params[:id])
-    
+
+    # Expire karma dataset cache
+    Rails.cache.delete("karma_data_"+current_user.id.to_s)
+
     # update overall karma
     @record.cats.each do |cat|
       if cat.karma

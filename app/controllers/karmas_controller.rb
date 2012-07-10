@@ -7,7 +7,8 @@ class KarmasController < ApplicationController
     @karmas = current_user.karmas
     
     # Generate Karma Dataset for header graph
-    @karma_dataset = Rails.cache.fetch("karma_data_user_"+current_user.id.to_s) do
+    @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+      puts 'generating new karma dataset'
       get_karma_data
     end
   end
