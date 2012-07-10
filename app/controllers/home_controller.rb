@@ -9,8 +9,11 @@ class HomeController < ApplicationController
       @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
       
       # Generate Karma Dataset for header graph
-      @karma_dataset = get_karma_data
+      @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+        get_karma_data
+      end
       
+      # Specify view
       template = 'records/index'
       layout = 'application'
     else      

@@ -2,15 +2,21 @@ class RecordsController < ApplicationController
 
   before_filter :require_login, { :except => :index }
 
-  require 'csv'
-
   # index temporarily in HomeController
 
   def edit
     @record = Record.find(params[:id])
+    
+    # Generate Karma Dataset for header graph
+    @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+      get_karma_data
+    end
   end
 
   def create      
+    # Expire karma dataset cache
+    Rails.cache.delete("karma_data_user_"+current_user.id.to_s)
+  
     @record = Record.new(params[:record])
     @record.raw = params[:record][:raw]
     
@@ -65,6 +71,9 @@ class RecordsController < ApplicationController
   # PUT /records/1
   # PUT /records/1.json
   def update
+    # Expire karma dataset cache
+    Rails.cache.delete("karma_data_user_"+current_user.id.to_s)
+  
     @record = Record.find(params[:id])
     @record.raw = params[:record][:raw]
     

@@ -15,6 +15,8 @@ end
 
 gem 'd3-rails'
 
+gem 'dalli'
+
 gem 'sorcery'
 gem 'json'
 

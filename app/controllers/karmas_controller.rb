@@ -7,11 +7,18 @@ class KarmasController < ApplicationController
     @karmas = current_user.karmas
     
     # Generate Karma Dataset for header graph
-    @karma_dataset = get_karma_data
+    @karma_dataset = Rails.cache.fetch("karma_data_user_"+current_user.id.to_s) do
+      get_karma_data
+    end
   end
 
   def show
     @karma = Karma.find(params[:id])
+
+    # Generate Karma Dataset for header graph
+    @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+      get_karma_data
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,6 +31,11 @@ class KarmasController < ApplicationController
   def new
     @karma = Karma.new
 
+    # Generate Karma Dataset for header graph
+    @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+      get_karma_data
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @karma }
@@ -33,6 +45,11 @@ class KarmasController < ApplicationController
   # GET /karmas/1/edit
   def edit
     @karma = Karma.find(params[:id])
+    
+    # Generate Karma Dataset for header graph
+    @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+      get_karma_data
+    end
   end
 
   # POST /karmas

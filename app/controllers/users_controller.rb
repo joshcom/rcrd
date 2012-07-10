@@ -9,7 +9,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     # Generate Karma Dataset for header graph
-    @karma_dataset = get_karma_data
+    @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
+      get_karma_data
+    end
 
     # Only current_user can edit user    
     if current_user != @user
