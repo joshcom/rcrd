@@ -16,9 +16,9 @@
 
     <% if current_user %>
       <div id="overall_karma" class="clearfix">
-        <% posneg = current_user.karma >= 0 ? 'positive' : 'negative' %>
-        <span class="<%= posneg %>"><%= add_plus current_user.karma %></span>    
-        <div id="karma_graph"></div>
+        <% @posneg = current_user.karma >= 0 ? 'positive' : 'negative' %>
+        <span class="<%= @posneg %>"><%= add_plus current_user.karma %></span>
+        <%= render :partial => "shared/karma_graph" %>
       </div>
     <% end %>
     
@@ -51,111 +51,6 @@
 <%= yield %>
 
 </div>
-
-<style>
-	/* tell the SVG path to be a thin blue line without any area fill */
-	path {
-    <% if posneg == 'positive' %>
-  		stroke: #29d045;
-    <% else %>
-      stroke: #dc1e10;
-    <% end %>
-		stroke-width: 2;
-		fill: none;
-	}
-	
-	.axis {
-	  shape-rendering: crispEdges;
-	}
-
-	.x.axis line {
-	  stroke: lightgrey;
-	}
-
-	.x.axis .minor {
-	  stroke-opacity: .5;
-	}
-
-	.x.axis path {
-	  display: none;
-	}
-
-	.y.axis line, .y.axis path {
-	  fill: none;
-	  stroke: #000;
-	}
-</style>
-<% if @karma_dataset %>
-	<script>
-    var dataset = Array();
-    <%
-    @karma_dataset.each do |b|
-      %>
-      dataset.push(<%= b %>);
-      <%
-    end
-    %>
-    
-/*     console.log(dataset); */
-	
-		/* implementation heavily influenced by http://bl.ocks.org/1166403 */
-		
-		// define dimensions of graph
-    var padding = 1;
-    <% if request.user_agent.include?("iPhone") %>
-      var w = 80;
-    <% else %>
-      var w = 170;
-    <% end %>
-		var h = 35; // height
-		
-		// create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
-		var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2];
-		
-		data = dataset
-    
-    // Scales
-		var x = d3.scale.linear()
-		  .domain([0, data.length])
-		  .range([0 - padding, w + padding]);
-		  
-		var y = d3.scale.linear()
-      .domain([
-        d3.min(data, 
-          function(d) {
-            return d;
-          }
-        ), 
-        d3.max(data, 
-          function(d) { 
-            return d;
-          }
-        )])
-		  .range([h - padding, 0 + padding]);
-		  
-
-			// automatically determining max range can work something like this
-			// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
-
-		// create a line function that can convert data[] into x and y points
-		var line = d3.svg.line()
-			.x(function(d,i) { 
-				return x(i); 
-			})
-			.y(function(d) { 
-				return y(d); 
-			})
-
-			// Add an SVG element with the desired dimensions and margin.
-			var graph = d3.select("#karma_graph").append("svg:svg")
-			      .attr("width", w)
-			      .attr("height", h);
-			      			
-  // Add the line
-	graph.append("svg:path").attr("d", line(data));
-
-</script>
-<% end %>
 
 <script type="text/javascript">
 

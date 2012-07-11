@@ -16,6 +16,7 @@ class RecordsController < ApplicationController
   def create      
     # Expire karma dataset cache
     Rails.cache.delete("karma_data_"+current_user.id.to_s)
+    expire_fragment("records_"+current_user.id.to_s)
   
     @record = Record.new(params[:record])
     @record.raw = params[:record][:raw]
@@ -73,6 +74,7 @@ class RecordsController < ApplicationController
   def update
     # Expire karma dataset cache
     Rails.cache.delete("karma_data_"+current_user.id.to_s)
+    expire_fragment("records_"+current_user.id.to_s)
   
     @record = Record.find(params[:id])
     @record.raw = params[:record][:raw]
@@ -132,6 +134,7 @@ class RecordsController < ApplicationController
 
     # Expire karma dataset cache
     Rails.cache.delete("karma_data_"+current_user.id.to_s)
+    expire_fragment("records_"+current_user.id.to_s)
 
     # update overall karma
     @record.cats.each do |cat|

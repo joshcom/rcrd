@@ -1,16 +1,20 @@
 class HomeController < ApplicationController
 
   def index 
-    # this is a terrible fix, I know
+    # this is a terrible fix, I know.
     if current_user   
-      @records = Record.find(:all, :conditions => ["user_id=? AND created_at > ?", current_user.id, 3.weeks.ago], :order => 'created_at DESC')  
-      @record_days = @records.group_by { |r| r.created_at.beginning_of_day }
+    
+      # Fetch last 3 weeks' records
+      @record_days = Record.home_page_records(current_user.id)
+      
+      # Generate new record
       @record ||= Record.new
       @record.created_at = Time.zone.now.strftime("%H:%M %d/%m/%Y")
       
       # Generate Karma Dataset for header graph
-      @karma_dataset = Rails.cache.fetch("karma_data_"+current_user.id.to_s) do
-        puts 'generating new karma dataset'
+      cache_key = "karma_data_"+current_user.id.to_s
+      @karma_dataset = Rails.cache.fetch(cache_key) do
+        puts 'CACHE: generating new '+cache_key
         get_karma_data
       end
       

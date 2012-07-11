@@ -1,0 +1,63 @@
+<% cache("records_"+current_user.id.to_s, :expires_in => 7.days) do %>
+  <div id="records">
+  
+    <% @record_days.each do |day, records| %>
+    
+      <%= render :partial => "product", :collection => @products %>
+    
+      <h2><%= day.strftime('%A %B %d') %> 
+          <span class="movement">
+  <%
+  #          total movement: <%= calculate_absolute(records) %>
+  <%
+  #         end of day: <%= raw add_plus(calculate_movement(records).to_s) %>
+          </span>
+      </h2>
+      <% for record in records %>
+        <div class="record clearfix" style="
+        <%
+        # seconds elapsed / seconds in day
+        elapsed = record.created_at.in_time_zone(record.time_zone).strftime("%H").to_f*3600
+        elapsed += record.created_at.in_time_zone(record.time_zone).strftime("%M").to_f*60
+  	  elapsed += record.created_at.in_time_zone(record.time_zone).strftime("%S").to_f
+  	  
+  	  hue = elapsed/86400*256  # proportion to denominator 256
+  	  hue = hue.round.to_s
+        %>
+        background-color: hsl(<%= hue %>, 80%, 60%);
+          ">
+          <div class="timestamp">
+            <%= record.created_at.in_time_zone(record.time_zone).strftime '%I:%M%p' %>
+          </div>
+          <% 
+          record.cats.each do |c| 
+            puts 'this is what is causing all the fuss'+ c.record_id.to_s
+            %>
+            <%= link_to '/cats/'+c.name, :class => 'cat', :style => 'background-color: hsl('+hue+', 60%, 25%); border-top: solid 1px hsl('+hue+', 80%, 20%); border-bottom: solid 1px hsl('+hue+', 80%, 80%);' do %>
+              <%= c.magnitude %>
+              <% if c.magnitude && c.magnitude > 1 %>
+                <%= c.name.pluralize %>
+              <% else %>
+                <%= c.name %>
+              <% end %>
+            <% end %>
+            <% if c.karma %>
+              <span class="karma <%= c.karma >= 0 ? 'positive' : 'negative' %>"
+                style="background-color: hsl(<%= hue %>, 60%, 30%); 
+                       border-top: solid 1px hsl(<%= hue %>, 80%, 20%); 
+                       border-bottom: solid 1px hsl(<%= hue %>, 80%, 80%);">
+                       <%= add_plus c.karma %>
+              </span>
+            <% end %>
+          <% end %>
+          <span><%= link_to 'Edit', edit_record_path(record), :class => 'edit' %></span>
+          <span><%= link_to 'Destroy', record, confirm: 'Are you sure?', method: :delete, :class => 'destroy' %></span>
+          <% if current_user.time_zone != record.time_zone %>
+            <span class="zone"><%= record.time_zone %></span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  
+  </div>
+<% end %>
