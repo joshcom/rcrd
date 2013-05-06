@@ -3,8 +3,6 @@
   
     <% @record_days.each do |day, records| %>
     
-      <%= render :partial => "product", :collection => @products %>
-    
       <h2><%= day.strftime('%A %B %d') %> 
           <span class="movement">
   <%
