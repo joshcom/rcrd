@@ -4,32 +4,20 @@
   <title>rcrd</title>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
-  <script src="http://code.highcharts.com/highcharts.js"></script>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
 </head>
 <body>
-<div id="wrap">
+  <div id="wrap">
 
-<header class="clearfix">
+    <header class="clearfix">
+
   <div class="primary clearfix">
-
-    <% if current_user %>
-      <div id="overall_karma" class="clearfix">
-        <% @posneg = current_user.karma >= 0 ? 'positive' : 'negative' %>
-        <span class="<%= @posneg %>"><%= add_plus current_user.karma %></span>
-        <%= render :partial => "shared/karma_graph" %>
-      </div>
-    <% end %>
-    
     <h1>
       <a href="<%= root_url %>">
-        <img src="<%= image_path('logo.png') %>" alt="rcrd" title="rcrd home" />
+        <%= image_tag('logo.png') %>
       </a>
     </h1>
-    
-    <span id="alpha">alpha</span>
-    
   </div>
 
   <% if current_user %>
@@ -39,7 +27,6 @@
     
       <ul class="navigation clearfix">
         <li><a href="/karmas">Karmas</a></li>
-  <!--       <li><a href="Community Metrics">Community Metrics</a></li> -->
         <li><a href=""><%= link_to current_user.email, edit_user_path(current_user) %></a></li>
         <li><a href="<%= logout_path %>">Log out</a></li>
       </ul>
@@ -47,26 +34,9 @@
     </div>
   <% end %>
 </header>
+    <%= yield %>
+  </div>
 
-<%= yield %>
-
-</div>
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-33106225-1']);
-  _gaq.push(['_setDomainName', 'rcrd.org']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </body>
 </html>

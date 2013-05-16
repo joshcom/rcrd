@@ -1,0 +1,5 @@
+<div class="boxes">
+  <% @days.each do |key, count| %>
+    <div class="<%= 'red' if count.to_i > 0 %>"></div>
+  <% end %>
+</div>
