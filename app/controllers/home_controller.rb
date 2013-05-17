@@ -17,4 +17,8 @@ class HomeController < ApplicationController
 
     @days.keys.sort!
   end
+
+  def dashboard
+    puts 'hello'
+  end
 end

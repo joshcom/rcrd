@@ -8,8 +8,16 @@
 header {
   border-bottom: solid 1px #ccc;
   padding: 18px 0;
+  margin: 0 0 18px;
   h1 {
-
+    display: inline-block;
+  }
+  ul {
+    margin: 18px 0 0;
+    padding: 0;
+    font-size: 12px;
+    li {
+    }
   }
 }
 
@@ -29,5 +37,18 @@ div.boxes {
     &.blue {
       background-color: #06a6bf;
     }
+  }
+}
+
+div.cat-input {
+  border: 1px solid #ccc;
+  padding: 0;
+  input {
+    display: block;
+    width: 100%;
+    padding: 4px 0;
+    margin: 0;
+    border: 0;
+    font-size: 16px;
   }
 }
