@@ -1,5 +1,10 @@
 <div class="boxes">
   <% @days.each do |key, count| %>
-    <div class="<%= 'red' if count.to_i > 0 %>"></div>
+    <div class="<%= 'red' if count.to_i > 0 %>" data-date="<%= key %>"></div>
+  <% end %>
+
+  <% @days_rev = Hash[@days.to_a.reverse] %>
+  <% @days_rev.each do |key, count| %>
+    <div class="<%= 'blue' if count.to_i > 0 %>" data-date="<%= key %>"></div>
   <% end %>
 </div>

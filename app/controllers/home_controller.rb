@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index 
-    @num_days = 32
+    @num_days = 60  
     query = "SELECT date_trunc('day', created_at) AS day, count(*) AS record_count FROM records WHERE created_at > now() - interval '#{@num_days} days' and user_id = 2 GROUP BY 1 ORDER BY 1"
     result = ActiveRecord::Base.connection.execute(query)
 

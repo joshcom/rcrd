@@ -1,252 +1,33 @@
-/* Layout
-======================================*/
 
-#wrap {
+#everything {
   font-family: "Lucida Grande", "Verdana", sans-serif;
+  padding: 18px;
+  max-width: 600px;
+  margin: 0 auto;
 }
-
-/* Global
-======================================*/
-
-.positive {
-  color: #29d045;
-}
-.negative {
-  color: #dc1e10; 
-}
-
-/* Header
-======================================*/
-
 header {
-  .primary {
-    border-bottom: solid 1px #ccc;
-    margin: 0 0 12px;
-    padding: 0 0 12px;
-    h1 {
-      float: left;
-    }
-    #alpha {
-      font-size: 11px;
-    }
-    #overall_karma {
-      margin: 5px 0 0;
-      float: right;
-      span {
-        font-size: 29px;
-        font-weight: bold;
-        float: right;
-      }
-      #karma_graph {
-        float: right;
-        margin: 0 6px 0 0;
-      }
-    }
-  }
-  .secondary {
-    margin: 0 0 36px;
-    p.schtick {
-      font-size: 14px;
-      line-height: 20px;
-      margin: 0 0 6px;
-    }
-    ul.navigation {
-      margin: 0;
-      li {
-        float: left;
-        font-size: 11px;
-        line-height: 20px;
-        margin: 0 14px 0 0;
-        a {
-          font-weight: bold;
-          &:hover {
-            color: #444;
-          }
-        }
-      }
-    }
+  border-bottom: solid 1px #ccc;
+  padding: 18px 0;
+  h1 {
+
   }
 }
 
-/* Tools
-======================================*/
-
-#tools {
-  margin: 0 0 24px;
-  input[type='submit'] {
-    margin: 0 12px 0 0;
-  }
-  a.button {
-    height: 23px;
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    color: #333;
-    background-color: #eee;
-    border: solid 1px #ddd;
-    border-radius: 3px;
-    text-shadow: 1px 1px 0 #fff;
-    line-height: 23px;
-    padding: 0 10px 1px 8px;
-    &:hover {
-      color: #fff;
-      text-shadow: 0 -1px 0 #21609d;
-      border: solid 1px #25588b;
-      border-top: solid 1px #2f82d3;
-      background:-webkit-linear-gradient(#599BDC, #3072B3);
+div.boxes {
+  margin: 36px 0;
+  div {
+    display: block;
+    float: left;
+    width: 8px;
+    height: 8px;
+    margin: 0 2px 2px 0;
+    padding: 0;
+    background-color: #ddd;
+    &.red {
+      background-color: #d4150d;
     }
-  }	
-}
-
-/* Box
-======================================*/
-.box {
-  font-size: 12px;
-  background-color: #F9F9F9;
-  border: 1px solid #D0D0D0;
-  color: #002166;
-  margin: 0 0 14px;
-  padding: 10px;
-  
-  .new_record {
-    
-    input {
-      float: left;
-    }
-    input[type='text'] {
-    	width: 60%;
-      font-size: 15px;
-      padding: 3px;
-    }
-    input[type='submit'] {
-      font-size: 14px;
-      margin: 6px 12px 0;
+    &.blue {
+      background-color: #06a6bf;
     }
   }
-}
-
-#records {
-  width: 100%;
-  margin: 0 0 14px;
-  
-  h2 {
-    font-size: 18px;
-    margin: 12px 0 6px;
-    .movement {
-      font-size: 12px;
-      color: #999;
-    }
-  }
-  
-  .record {
-    padding: 8px 10px;
-    
-    .timestamp {
-      float: left;
-      margin: 6px 16px 0 0;
-      color: #222;
-    }
-    
-    a.cat {
-      float: left;
-      background-color: #2560d4;
-      color: white;
-      padding: 4px 8px 7px;
-      margin: 0 0 0 16px;
-      border-radius: 6px;
-      border-bottom: solid 1px #6993e5;
-      border-top: solid 1px #183f8c;
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-    
-    .karma {
-      float: left;
-      padding: 4px 5px 7px;
-      margin: 0 0 0 6px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-    .destroy {
-      float: right;
-      color: #999;
-      font-size: 11px;
-      padding: 7px 5px 0 0;
-    }
-    .edit {
-      float: right;
-      color: #999;
-      font-size: 11px;
-      padding: 7px 0 0;
-    }
-    .zone {
-      float: right;
-      color: #555;
-      font-size: 11px;
-      padding: 7px 10px 0 0;
-      
-    }
-  }        
-}
-
-/* Responsive Design
-======================================*/
-
-@media screen {
-/*
-  #alpha {
-    color: red;
-  }
-*/
-  #wrap {
-    margin: 36px;
-  }
-  html { 
-    -webkit-text-size-adjust:none; 
-  } 
-}
-
-@media screen and (max-width: 960px) {
-/*
-  #alpha {
-    color: green;
-  }
-*/
-  #wrap {
-    margin: 12px;
-  }
-  html { 
-    -webkit-text-size-adjust:none; 
-  } 
-}
-
-@media all and (orientation:portrait) {   
-}
-
-@media all and (orientation:landscape) {   
-}
-
-/* SVG Graph
-======================================*/
-
-.axis {
-  shape-rendering: crispEdges;
-}
-
-.x.axis line {
-  stroke: lightgrey;
-}
-
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.y.axis line, .y.axis path {
-  fill: none;
-  stroke: #000;
 }
