@@ -1,3 +1,7 @@
+// Attempting to have a modular CSS base style framework like BH
+
+.margin-y { margin-top: 2em; margin-bottom: 2em; }
+
 
 #everything {
   font-family: "Lucida Grande", "Verdana", sans-serif;
@@ -40,15 +44,64 @@ div.boxes {
   }
 }
 
-div.cat-input {
-  border: 1px solid #ccc;
-  padding: 0;
-  input {
-    display: block;
-    width: 100%;
-    padding: 4px 0;
-    margin: 0;
-    border: 0;
-    font-size: 16px;
+
+.induction {
+  float: left;
+  width: 60%;
+  .cat-input {
+    margin: 0 0 12px;
+    input {
+      display: block;
+      width: 90%;
+      padding: 4px;
+      margin: 0;
+      border: solid 1px #ccc;
+      font-size: 18px;
+    }
+  }
+}
+.picked {
+  width: 32%;
+  float: right;
+  border-left: solid 1px #ddd;
+  padding: 0 0 18px 12px;
+}
+
+.cat {
+  display: inline-block;
+  color: white;
+  font-size: 14px;
+  background-color: hsl(230, 80%, 60%); 
+  text-shadow: 0 -1px 1px hsl(230, 80%, 20%);
+  //background-color: hsl(230, 60%, 25%); 
+  border-bottom: solid 2px hsl(230, 80%, 20%); 
+  border-radius: 4px;
+  padding: 8px 0;
+  margin: 0 6px 6px 0;
+  -webkit-user-select: none;
+  user-select: none;
+  &:not(.mag) {
+      padding-left: 12px;
+  }
+  i {
+    font-style: normal;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: hsl(230, 50%, 34%); 
+    border-right: solid 1px hsl(230, 80%, 45%); 
+    //border-bottom: solid 1px hsl(230, 80%, 40%); 
+    padding: 8px;
+    margin: 0 6px 0 0;
+  }
+  &:hover {
+    background-color: hsl(230, 80%, 63%); 
+    cursor: pointer;
+  }
+  &:active {
+    border-top: solid 2px hsl(230, 80%, 50%); 
+    border-bottom: none; 
+  }
+  > span {
+    margin: 0 12px 0 0;
   }
 }
