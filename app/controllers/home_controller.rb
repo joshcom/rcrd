@@ -1,24 +1,17 @@
 class HomeController < ApplicationController
   def index 
     @num_days = 60  
-    query = "SELECT date_trunc('day', created_at) AS day, count(*) AS record_count FROM records WHERE created_at > now() - interval '#{@num_days} days' and user_id = 2 GROUP BY 1 ORDER BY 1"
-    result = ActiveRecord::Base.connection.execute(query)
-
-    @days = {} 
-
-    (Date.today-@num_days...Date.today).each do |day|
-      @days[day.strftime('%F')] = 0 
+    @cats = [
+      {name: 'swim', color: 'blue', days: nil}, 
+      {name: 'meet', color: 'light-blue', days: nil}, 
+      {name: 'run', color: 'blue', days: nil}, 
+      {name: 'drink', color: 'red', days: nil}] 
+    @cats.each do |cat|
+      puts cat[:name]
+      cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
     end
-    
-    result.each do |res|
-      date = Date.parse(res['day']).strftime('%F')
-      @days[date] = res['record_count']
-    end
-
-    @days.keys.sort!
   end
 
   def dashboard
-    puts 'hello'
   end
 end
