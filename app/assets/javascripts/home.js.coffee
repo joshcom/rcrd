@@ -23,8 +23,7 @@ populate_suggestion_list = (suggestions) ->
   for sug in suggestions
     $guesses.append '<span class="cat"><span>'+sug.cat+'</span></span>'
   $('.guesses .cat').click (e) -> 
-    console.log "hello"
-    new_cat = $('.cat-input input').val()
+    new_cat = $(this).text()
     $('.cat-input input').val ''
     $('.guesses').html ''
     $('.picked').append '<span class="cat"><span>'+new_cat+'</span></span>'

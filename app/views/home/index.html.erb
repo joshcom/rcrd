@@ -1,5 +1,8 @@
 <div class="boxes">
   <% @cats.each do |cat| %>
+    <% if cat[:header] %>
+      <h5><%= cat[:header] %></h5>
+    <% end %>
     <% cat[:days].each do |key, count| %>
       <div class="<%= cat[:color] if count.to_i > 0 %>" data-date="<%= key %>"></div>
     <% end %>

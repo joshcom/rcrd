@@ -20,6 +20,7 @@ header {
     margin: 18px 0 0;
     padding: 0;
     font-size: 12px;
+    float: right;
     li {
     }
   }
@@ -44,6 +45,10 @@ div.boxes {
     &.light-blue {
       background-color: aqua;
     }
+  }
+  h5 {
+    font-size: 10px;
+    font-weight: normal;
   }
 }
 
