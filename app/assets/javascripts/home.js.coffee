@@ -1,10 +1,10 @@
-cats = ['swim', 'drink', 'Koret', 'Masters', 'workout', 'run', 'cycle']
-
-console.log()
+#cats = ['swim', 'drink', 'Koret', 'Masters', 'workout', 'run', 'cycle']
 
 $('.cat-input input').keyup ->
   $self = $(this)
   query = $self.val()
+  magnitude = query.match /^\s*\d+/
+  query = query.replace /^\s*\d+\s*/, '' # remove magnitude
   distances = [] 
   for cat in cats
     distances.push {cat: cat, dist: levenshteinenator(query, cat)}
@@ -14,19 +14,36 @@ $('.cat-input input').keyup ->
     if a.dist > b.dist
       return 1
     return 0
-  console.log distances
-  populate_suggestion_list distances.splice(0, 4)
+  mag = if magnitude then magnitude[0] else null
+  populate_suggestion_list(distances.splice(0, 4), mag)
 
-populate_suggestion_list = (suggestions) ->
+$('#go').click (e) ->
+  generate_raw_from_selected_cats()
+
+populate_suggestion_list = (suggestions, mag) ->
   $guesses = $('.guesses')
   $guesses.html ''
   for sug in suggestions
-    $guesses.append '<span class="cat"><span>'+sug.cat+'</span></span>'
+    if mag
+      $guesses.append '<span class="cat mag"><i>'+mag+'</i><span>'+sug.cat+'</span></span>'
+    else
+      $guesses.append '<span class="cat"><span>'+sug.cat+'</span></span>'
   $('.guesses .cat').click (e) -> 
     new_cat = $(this).text()
+    new_cat = new_cat.replace /^\s*\d+\s*/, '' # remove magnitude
     $('.cat-input input').val ''
     $('.guesses').html ''
-    $('.picked').append '<span class="cat"><span>'+new_cat+'</span></span>'
+    if mag
+      $('.picked').append '<span class="cat mag"><i>'+mag+'</i><span>'+new_cat+'</span></span>'
+    else
+      $('.picked').append '<span class="cat"><span>'+new_cat+'</span></span>'
+
+generate_raw_from_selected_cats = () ->
+  raw = ""
+  $('.picked .cat').each (i, cat) ->
+    raw += "," if i > 0
+    raw += $(cat).text()
+  console.log raw
 
 
 # Populate suggestions list

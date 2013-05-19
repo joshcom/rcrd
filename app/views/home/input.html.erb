@@ -5,13 +5,21 @@
       <input type="text" name="cat" />
     </div>
     <div class="guesses">
-        <span class="cat"><span>swim</span></span>
     </div>
   </div>
 
-    <div class="picked">
-        <span class="time">7:00pm Tuesday, June 7</span>
-        <div class="margin-y"></div>
-        <span class="cat"><i>5</i><span>drinks</span></span>
-    </div>
+  <div class="picked">
+    <span id="go">GO</span>
+    <span class="time">7:00pm Tuesday, June 7</span>
+    <div class="margin-y"></div>
+    <span class="cat mag"><i>5</i><span>drinks</span></span>
+  </div>
 </div>
+
+<script type="text/javascript">
+var cats = [];
+<% @trending.each do |k, v| %>
+  cats.push("<%= k %>");
+<% end %>
+</script>
+
