@@ -1,6 +1,10 @@
 #cats = ['swim', 'drink', 'Koret', 'Masters', 'workout', 'run', 'cycle']
 
-$('.cat-input input').keyup ->
+
+$(document).ready (e) ->
+  $('#cat-input').focus()
+
+$('#cat-input').keyup ->
   $self = $(this)
   query = $self.val()
   magnitude = query.match /^\s*\d+/
@@ -23,11 +27,12 @@ $('#go').click (e) ->
 populate_suggestion_list = (suggestions, mag) ->
   $guesses = $('.guesses')
   $guesses.html ''
-  for sug in suggestions
+  $.each suggestions, (i, sug) ->
+    xclass = if i == 0 then "selected" else "unselected"
     if mag
-      $guesses.append '<span class="cat mag"><i>'+mag+'</i><span>'+sug.cat+'</span></span>'
+      $guesses.append '<span class="cat mag '+xclass+'"><i>'+mag+'</i><span>'+sug.cat+'</span></span>'
     else
-      $guesses.append '<span class="cat"><span>'+sug.cat+'</span></span>'
+      $guesses.append '<span class="cat '+xclass+'"><span>'+sug.cat+'</span></span>'
   $('.guesses .cat').click (e) -> 
     new_cat = $(this).text()
     new_cat = new_cat.replace /^\s*\d+\s*/, '' # remove magnitude

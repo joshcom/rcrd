@@ -1,1 +1,16 @@
-de records
+<div class="margin-bottom">
+  <h2>Last 30 days</h2>
+</div>
+
+<% last_day = '0' %>
+<% @records.each do |record| %>
+  <div class="day">
+    <% if last_day != record.created_at.strftime('%d') %>
+      <h4><%= record.created_at.strftime '%b %e' %></h4>
+    <% end %>
+    <% last_day = record.created_at.strftime '%d' %>
+    <% record.cats_from_raw.each do |cat| %>
+      <span class="cat" style="background-color: hsl(<%= record.hue %>, 70%, 45%);"><span><%= cat %></span></span>
+    <% end %>
+  </div>
+<% end %>

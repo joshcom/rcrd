@@ -1,21 +1,4 @@
 
-<div class="margin-y">
-  <div class="induction">
-    <div class="cat-input">
-      <input type="text" name="cat" />
-    </div>
-    <div class="guesses">
-    </div>
-  </div>
-
-  <div class="picked">
-    <span id="go">GO</span>
-    <span class="time">7:00pm Tuesday, June 7</span>
-    <div class="margin-y"></div>
-    <span class="cat mag"><i>5</i><span>drinks</span></span>
-  </div>
-</div>
-
 <script type="text/javascript">
 var cats = [];
 <% @trending.each do |k, v| %>
@@ -23,3 +6,33 @@ var cats = [];
 <% end %>
 </script>
 
+<div class="margin-y clearfix">
+  <div class="induction">
+    <div class="input-wrap">
+      <input type="text" name="cat" id="cat-input" />
+    </div>
+  </div>
+</div>
+
+<div class="margin-y clearfix">
+  <div class="guesses">
+  </div>
+  <div class="picked">
+  </div>
+  <span class="time">7:00pm Tuesday, June 7</span>
+  <span id="go">GO</span>
+  <span id="go">clear</span>
+</div>
+
+
+<div class="margin-y">
+  <h2 class="span">Last 7 days</h2>
+  <% @last_7_days.each do |record| %>
+    <div class="day">
+      <%= record.created_at.strftime '%c' %>
+      <% record.cats_from_raw.each do |cat| %>
+        <span class="cat"><span><%= cat %></span></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

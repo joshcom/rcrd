@@ -23,7 +23,6 @@ class Record < ActiveRecord::Base
   end
 
   def self.get_trending_cats
-    # Return an array of cats where frequency >= 3
     cat_freqs = self.get_list_of_cat_frequencies
     cat_freqs.sort_by {|k,v| v}
     return cat_freqs.keys[0..40]
@@ -33,7 +32,7 @@ class Record < ActiveRecord::Base
     # Go through all records
     cat_list = {}
     Record.all.each do |record|
-      record.cats_from_raw.each do |cat|
+      record.cats_from_raw_without_mags.each do |cat|
         cat_list[cat] = 0  if !cat_list[cat]
         cat_list[cat] += 1
       end 
@@ -42,13 +41,23 @@ class Record < ActiveRecord::Base
   end
 
   def cats_from_raw
-    # Returns a records' cats derived from its raw text
     if self.raw
-      raw_minus_mags = self.raw.tr('0-9', '').split /,/
+      raw_minus_mags = self.raw.split /,/
       raw_minus_mags.map {|cat| cat.strip!}
       return raw_minus_mags
     else
       return [] 
     end
+  end
+
+  def cats_from_raw_without_mags
+    return cats_from_raw.map {|cat| cat.sub! /^\s*\d+\s*/, '' }
+  end
+
+
+  def hue
+   minutes = self.created_at.strftime('%k').to_i * 60
+   minutes += self.created_at.strftime('%M').to_i
+   return 1440 / 360 * minutes 
   end
 end

@@ -1,19 +1,6 @@
 // Attempting to have a modular CSS base style framework like BH
 
 .margin-y { margin-top: 2em; margin-bottom: 2em; }
-.margin-bottom { margin-bottom: 2em; }
-
-.input-wrap {
-  margin: 0 0 12px;
-  input {
-    display: block;
-    width: 590px;
-    padding: 4px;
-    margin: 0;
-    border: solid 1px #ccc;
-    font-size: 18px;
-  }
-}
 
 h2.span {
   padding: 12px 0;
@@ -64,7 +51,7 @@ div.boxes {
       margin: 0 2px 2px 0;
       padding: 0;
       float: left;
-      background-color: #eaeaea;
+      background-color: #ddd;
       &.red {
         background-color: #d4150d;
       }
@@ -82,6 +69,22 @@ div.boxes {
 }
 
 
+.induction {
+  .cat-input {
+    margin: 0 0 12px;
+    input {
+      display: block;
+      width: 590px;
+      padding: 4px;
+      margin: 0;
+      border: solid 1px #ccc;
+      font-size: 18px;
+    }
+  }
+}
+.picked {
+  padding: 0 0 18px 12px;
+}
 
 .cat {
   display: inline-block;
@@ -127,16 +130,11 @@ div.boxes {
   > span {
     margin: 0 12px 0 0;
   }
-  &.selected {
-    background-color: hsl(230, 40%, 60%); 
+  &.small {
+    font-size: 12px;
+    padding: 2px 0;
+    border-bottom: solid 1px hsl(230, 80%, 20%); 
   }
-  &.unselected {
-    background-color: hsl(230, 10%, 60%); 
-  }
-}
-
-.day {
-  margin-bottom: 6px;
 }
 
 div.trend {
