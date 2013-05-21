@@ -11,7 +11,7 @@ $(document).keydown (e) ->
   switch e.which
     when 37 then move_selection 'left'
     when 39 then move_selection 'right'
-    when 13 then console.log submit_selected_tag()
+    # when 13 then console.log submit_selected_tag()
 
 $(document).ready (e) ->
   $('#cat-input').focus()

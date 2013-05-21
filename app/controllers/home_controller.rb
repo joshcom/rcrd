@@ -17,11 +17,15 @@ class HomeController < ApplicationController
   end
 
   def trends 
-    @trends = Record.get_trending_cats
-  end
-
-  def input 
-    @trending = Record.get_trending_cats
-    @last_7_days = Record.where('created_at > ?', Date.today - 7.days).order('created_at DESC')
+    cats = ['swim', 'run', 'drink']
+    @trends = [] 
+    cats.each do |cat|
+      trend = {} 
+      trend[:name] = cat
+      trend[:last_4_weeks] = Record.get_weekly_frequency_since(Date.today - 4.weeks, cat)
+      trend[:last_8_weeks] = Record.get_weekly_frequency_since(Date.today - 8.weeks, cat)
+      trend[:last_16_weeks] = Record.get_weekly_frequency_since(Date.today - 16.weeks, cat)
+      @trends << trend
+    end
   end
 end

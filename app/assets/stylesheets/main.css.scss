@@ -2,6 +2,7 @@
 
 .margin-y { margin-top: 2em; margin-bottom: 2em; }
 .margin-bottom { margin-bottom: 2em; }
+.large { font-size: 18px; }
 
 .input-wrap {
   margin: 0 0 12px;
@@ -15,11 +16,13 @@
   }
 }
 
-h2.span {
+.span {
   padding: 12px 0;
   margin: 0 0 18px;
   border-bottom: solid 1px #ccc;
 }
+
+h1 { font-size: 1.6em; }
 
 
 
@@ -31,24 +34,26 @@ h2.span {
   padding: 18px;
   max-width: 600px;
   margin: 0 auto;
+  font-size: 14px;
 }
 header {
   border-bottom: solid 1px #ccc;
-  padding: 18px 0;
+  padding: 18px 0 12px;
   margin: 0 0 18px;
   h1 {
-    display: inline-block;
+    float: left;
     img {
       width: 88px;
       height: 44px;
     }
   }
   ul {
-    padding: 12px 0 0;
+    padding: 32px 0 0;
     font-size: 12px;
     float: right;
     li {
       display: inline-block;
+      margin: 0 12px 0 0;
     }
   }
 }
@@ -86,7 +91,6 @@ div.boxes {
 .cat {
   display: inline-block;
   color: white;
-  font-size: 14px;
   background-color: hsl(230, 80%, 60%); 
   text-shadow: 0 -1px 1px hsl(230, 80%, 20%);
   border-top: solid 2px rgba(0, 0, 0, 0); 
@@ -154,6 +158,12 @@ div.trend {
       width: 29%;
       display: inline-block;
       margin:  0 0 18px;
+      span.number {
+        font-size: 20px;
+        float: left;
+        margin: 0 8px 8px 0;
+        font-weight: bold;
+      }
       h4 {
         font-size: 14px;
       }

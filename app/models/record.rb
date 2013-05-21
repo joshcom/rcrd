@@ -41,23 +41,23 @@ class Record < ActiveRecord::Base
   end
 
   def cats_from_raw
-    if self.raw
-      raw_minus_mags = self.raw.split /,/
-      raw_minus_mags.map {|cat| cat.strip!}
-      return raw_minus_mags
-    else
-      return [] 
-    end
+    (self.raw || '').split(/,/).map {|cat| cat.strip}
   end
 
   def cats_from_raw_without_mags
     return cats_from_raw.map {|cat| cat.sub! /^\s*\d+\s*/, '' }
   end
 
+  def self.get_weekly_frequency_since(date, cat)
+    records = Record.where("created_at > ? AND raw LIKE ?", date, '%'+cat+'%').count.to_f
+    (records / ((Date.today - date).to_f / 7.0)).round(2)
+  end
 
   def hue
-   minutes = self.created_at.strftime('%k').to_i * 60
-   minutes += self.created_at.strftime('%M').to_i
-   return 1440 / 360 * minutes 
+   minutes = self.created_at.strftime('%k').to_f * 60.0
+   minutes += self.created_at.strftime('%M').to_f
+   ret =  (minutes / 1440.0)  * 360.0
+   puts ret 
+   return ret
   end
 end

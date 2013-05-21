@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Raw input:</b>
-</p>
-
+<div class="margin-bottom">
+  <% @record.cats_from_raw.each do |cat| %>
+    <span class="cat large" style="<%= style_info(@record.hue) %>"><span><%= cat %></span></span>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_record_path(@record) %> |
 <%= link_to 'Back', records_path %>

@@ -1,5 +1,61 @@
-<h1>New record</h1>
 
-<%= render 'form' %>
+<script type="text/javascript">
+var cats = [];
+<% @trending.each do |k, v| %>
+  cats.push("<%= k %>");
+<% end %>
+</script>
 
-<%= link_to 'Back', records_path %>
+<div class="margin-y clearfix">
+  <div class="induction">
+    <%= form_for @record do |f| %>
+      <% if @record.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+          <ul>
+          <% @record.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="input-wrap">
+        <%= f.text_field :raw, {placeholder: "e.g. workout, swim, Masters, Koret", id: "cat-input"} %>
+      </div>
+      <%= f.text_field :created_at, :placeholder => "Created at" %>
+    <%= f.submit %>
+    <% end %>
+  </div>
+</div>
+
+<div class="margin-y clearfix">
+  <div class="guesses">
+  </div>
+  <!--
+  <div class="preview">
+  </div>
+  -->
+  <span class="time">7:00pm Tuesday, June 7</span>
+  <span id="go">GO</span>
+  <span id="go">clear</span>
+</div>
+
+
+<div class="margin-y">
+  <h1>Last 7 days</h1>
+  <% last_day = '0' %>
+  <% @last_7_days.each do |record| %>
+    <div class="day">
+      <% if last_day != record.created_at.strftime('%d') %>
+        <h4 class="span"><%= record.created_at.strftime '%A' %></h4>
+      <% end %>
+      <% last_day = record.created_at.strftime '%d' %>
+      <%= link_to record.created_at.strftime('%c'), record %>
+      <% record.cats_from_raw.each do |cat| %>
+        <span class="cat" style="background-color: hsl(<%= record.hue %>, 80%, 60%);"><span><%= cat %></span></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
