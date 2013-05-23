@@ -1,0 +1,9 @@
+<div class="boxes">
+  <% @cats.each do |cat| %>
+    <div class="blocks clearfix">
+      <% cat[:days].each do |key, count| %>
+        <div class="day <%= cat[:color] if count.to_i > 0 %>" data-date="<%= key %>"></div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

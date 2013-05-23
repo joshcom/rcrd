@@ -1,252 +1,176 @@
-/* Layout
-======================================*/
+// Attempting to have a modular CSS base style framework like BH
 
-#wrap {
+.margin-y { margin-top: 2em; margin-bottom: 2em; }
+.margin-bottom { margin-bottom: 2em; }
+.large { font-size: 18px; }
+
+.input-wrap {
+  margin: 0 0 12px;
+  input {
+    display: block;
+    width: 590px;
+    padding: 4px;
+    margin: 0;
+    border: solid 1px #ccc;
+    font-size: 18px;
+  }
+}
+
+.span {
+  padding: 12px 0;
+  margin: 0 0 18px;
+  border-bottom: solid 1px #ccc;
+}
+
+h1 { font-size: 1.6em; }
+
+
+
+/* one-off styles */
+
+
+#everything {
   font-family: "Lucida Grande", "Verdana", sans-serif;
+  padding: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 14px;
 }
-
-/* Global
-======================================*/
-
-.positive {
-  color: #29d045;
-}
-.negative {
-  color: #dc1e10; 
-}
-
-/* Header
-======================================*/
-
 header {
-  .primary {
-    border-bottom: solid 1px #ccc;
-    margin: 0 0 12px;
-    padding: 0 0 12px;
-    h1 {
-      float: left;
-    }
-    #alpha {
-      font-size: 11px;
-    }
-    #overall_karma {
-      margin: 5px 0 0;
-      float: right;
-      span {
-        font-size: 29px;
-        font-weight: bold;
-        float: right;
-      }
-      #karma_graph {
-        float: right;
-        margin: 0 6px 0 0;
-      }
+  border-bottom: solid 1px #ccc;
+  padding: 18px 0 12px;
+  margin: 0 0 18px;
+  h1 {
+    float: left;
+    img {
+      width: 88px;
+      height: 44px;
     }
   }
-  .secondary {
-    margin: 0 0 36px;
-    p.schtick {
-      font-size: 14px;
-      line-height: 20px;
-      margin: 0 0 6px;
+  ul {
+    padding: 32px 0 0;
+    font-size: 12px;
+    float: right;
+    li {
+      display: inline-block;
+      margin: 0 12px 0 0;
     }
-    ul.navigation {
-      margin: 0;
-      li {
-        float: left;
-        font-size: 11px;
-        line-height: 20px;
-        margin: 0 14px 0 0;
-        a {
-          font-weight: bold;
-          &:hover {
-            color: #444;
-          }
-        }
+  }
+}
+
+div.boxes {
+  margin: 0px 0;
+  div.blocks {
+    position: relative;
+    width: 100%;
+    div.day {
+      width: 8px;
+      height: 8px;
+      margin: 0 2px 2px 0;
+      padding: 0;
+      float: left;
+      background-color: #eaeaea;
+      &.red {
+        background-color: #d4150d;
+      }
+      &.green {
+        background-color: green;
+      }
+      &.blue {
+        background-color: #06a6bf;
+      }
+      &.light-blue {
+        background-color: aqua;
       }
     }
   }
 }
 
-/* Tools
-======================================*/
 
-#tools {
-  margin: 0 0 24px;
-  input[type='submit'] {
+
+.cat {
+  display: inline-block;
+  color: white;
+  background-color: hsl(230, 80%, 60%); 
+  text-shadow: 0 -1px 1px hsl(230, 80%, 20%);
+  border-top: solid 2px rgba(0, 0, 0, 0); 
+  border-left: solid 2px rgba(0, 0, 0, 0); 
+  border-right: solid 2px rgba(0, 0, 0, 0); 
+  border-bottom: solid 2px hsl(230, 80%, 20%); 
+  border-radius: 4px;
+  padding: 8px 0;
+  margin: 0 6px 6px 0;
+  -webkit-user-select: none;
+  user-select: none;
+  &:not(.mag) {
+      padding-left: 12px;
+  }
+  i {
+    font-style: normal;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: hsl(230, 50%, 34%); 
+    border-right: solid 1px hsl(230, 80%, 45%); 
+    padding: 10px 8px;
+    margin: 0 6px 0 0;
+  }
+  &:hover {
+    background-color: hsl(230, 80%, 63%); 
+    cursor: pointer;
+  }
+  &:active {
+    background-color: hsl(230, 80%, 60%); 
+    border-top: solid 2px hsl(230, 80%, 50%); 
+    border-left: solid 2px hsl(230, 80%, 50%); 
+    border-right: solid 2px hsl(230, 80%, 50%); 
+    border-bottom: solid 2px rgba(0, 0, 0, 0); 
+    i {
+      background-color: hsl(230, 50%, 28%); 
+    }
+  }
+  > span {
     margin: 0 12px 0 0;
   }
-  a.button {
-    height: 23px;
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    color: #333;
-    background-color: #eee;
-    border: solid 1px #ddd;
-    border-radius: 3px;
-    text-shadow: 1px 1px 0 #fff;
-    line-height: 23px;
-    padding: 0 10px 1px 8px;
-    &:hover {
-      color: #fff;
-      text-shadow: 0 -1px 0 #21609d;
-      border: solid 1px #25588b;
-      border-top: solid 1px #2f82d3;
-      background:-webkit-linear-gradient(#599BDC, #3072B3);
-    }
-  }	
-}
-
-/* Box
-======================================*/
-.box {
-  font-size: 12px;
-  background-color: #F9F9F9;
-  border: 1px solid #D0D0D0;
-  color: #002166;
-  margin: 0 0 14px;
-  padding: 10px;
-  
-  .new_record {
-    
-    input {
-      float: left;
-    }
-    input[type='text'] {
-    	width: 60%;
-      font-size: 15px;
-      padding: 3px;
-    }
-    input[type='submit'] {
-      font-size: 14px;
-      margin: 6px 12px 0;
-    }
+  &.selected {
+    background-color: hsl(230, 40%, 60%); 
+  }
+  &.unselected {
+    background-color: hsl(230, 10%, 60%); 
   }
 }
 
-#records {
-  width: 100%;
-  margin: 0 0 14px;
-  
+.day {
+  margin-bottom: 6px;
+}
+
+div.trend {
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 0 0 18px;
   h2 {
     font-size: 18px;
-    margin: 12px 0 6px;
-    .movement {
-      font-size: 12px;
-      color: #999;
-    }
+    color: #888;
   }
-  
-  .record {
-    padding: 8px 10px;
-    
-    .timestamp {
-      float: left;
-      margin: 6px 16px 0 0;
-      color: #222;
-    }
-    
-    a.cat {
-      float: left;
-      background-color: #2560d4;
-      color: white;
-      padding: 4px 8px 7px;
-      margin: 0 0 0 16px;
-      border-radius: 6px;
-      border-bottom: solid 1px #6993e5;
-      border-top: solid 1px #183f8c;
-      &:hover {
-        opacity: 0.9;
+  ul.stats {
+    margin: 18px 0 0;
+    li {
+      width: 29%;
+      display: inline-block;
+      margin:  0 0 18px;
+      span.number {
+        font-size: 20px;
+        float: left;
+        margin: 0 8px 8px 0;
+        font-weight: bold;
+      }
+      h4 {
+        font-size: 14px;
+      }
+      h5 {
+        font-weight: normal;
+        font-size: 11px;
       }
     }
-    
-    .karma {
-      float: left;
-      padding: 4px 5px 7px;
-      margin: 0 0 0 6px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-    .destroy {
-      float: right;
-      color: #999;
-      font-size: 11px;
-      padding: 7px 5px 0 0;
-    }
-    .edit {
-      float: right;
-      color: #999;
-      font-size: 11px;
-      padding: 7px 0 0;
-    }
-    .zone {
-      float: right;
-      color: #555;
-      font-size: 11px;
-      padding: 7px 10px 0 0;
-      
-    }
-  }        
-}
-
-/* Responsive Design
-======================================*/
-
-@media screen {
-/*
-  #alpha {
-    color: red;
   }
-*/
-  #wrap {
-    margin: 36px;
-  }
-  html { 
-    -webkit-text-size-adjust:none; 
-  } 
-}
-
-@media screen and (max-width: 960px) {
-/*
-  #alpha {
-    color: green;
-  }
-*/
-  #wrap {
-    margin: 12px;
-  }
-  html { 
-    -webkit-text-size-adjust:none; 
-  } 
-}
-
-@media all and (orientation:portrait) {   
-}
-
-@media all and (orientation:landscape) {   
-}
-
-/* SVG Graph
-======================================*/
-
-.axis {
-  shape-rendering: crispEdges;
-}
-
-.x.axis line {
-  stroke: lightgrey;
-}
-
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.y.axis line, .y.axis path {
-  fill: none;
-  stroke: #000;
 }

@@ -1,0 +1,22 @@
+<% @trends.each do |cat| %>
+  <div class="trend">
+    <h2><%= cat[:name] %></h2>
+    <ul class="stats">
+      <li>
+        <span class="number"><%= cat[:last_4_weeks] %></span>
+        <h4>Per week</h4>
+        <h5>Last 4 weeks</h5>
+      </li>
+      <li>
+        <span class="number"><%= cat[:last_8_weeks] %></span>
+        <h4>Per week</h4>
+        <h5>Last 8 weeks</h5>
+      </li>
+      <li>
+        <span class="number"><%= cat[:last_16_weeks] %></span>
+        <h4>Per week</h4>
+        <h5>Last 16 weeks</h5>
+      </li>
+    </ul>
+  </div>
+<% end %>

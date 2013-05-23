@@ -1,40 +1,28 @@
-Nassau::Application.routes.draw do
-
-  get "sessions/new"
-
-  get "users/new"  
-  get "users/edit"
-
-  get 'records' => 'home#index'
-  get 'stats' => 'home#stats'
-  get 'records/all' => 'records#all'
-  
-  get 'graphs' => 'graphs#index'
-
-  resources :records
-
-  match 'records/jellyfish' => 'records#jellyfish'
-  
-  match 'cats/:name' => 'cats#show', :as => :cat
-
-  # also temp temp
-  match 'specialimport' => 'records#specialImport'
-
-  resources :records do
-    resources :cats
+class LoggedInConstraint
+  def initialize(value)
+    @value = value
   end
-  
-  resources :karmas
-  
-  # TEMP TEMP TEMP
-  get "changeover" => "records#changeover", :as => "changeover"
-  
-  get "logout" => "sessions#destroy", :as => "logout"
-  get "login" => "sessions#new", :as => "login"
-  get "signup" => "users#new", :as => "signup"
-  
+
+  def matches?(request)
+    !request.cookies.key?("user_id") == @value
+  end
+end
+
+
+Nassau::Application.routes.draw do
+  resources :records
   resources :users
   resources :sessions
   
-  root :to => 'home#index'
+  get 'cats/:name' => 'cats#show', :as => :cat
+  
+  get 'public' => 'home#public', as: 'public'
+  get 'trends' => 'home#trends', as: 'trends'
+  get 'input' => 'home#input', as: 'input'
+
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+
+  root :to => "home#index"#, :constraints => LoggedInConstraint.new(false)
+#root :to => "home#dashboard", :constraints => LoggedInConstraint.new(true)
 end
