@@ -26,4 +26,19 @@ class RecordsController < ApplicationController
       render action: 'new', notice: 'Sorry, there was an issue saving your record.'
     end
   end
+
+  def update
+    @record = Record.find(params[:id])
+    if @record.update_attributes(params[:record])
+      redirect_to @record, notice: 'Record was successfully updated.'
+    else
+      redirect_to @record, notice: 'Sorry, there was a problem saving.'
+    end
+  end
+
+  def destroy
+    @record = Record.find(params[:id])
+    @record.destroy
+    redirect_to :records
+  end
 end

@@ -11,6 +11,7 @@ gem 'd3-rails'
 
 gem 'sorcery'
 gem 'json'
+gem 'jquery-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

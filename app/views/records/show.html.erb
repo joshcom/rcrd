@@ -6,5 +6,29 @@
   <% end %>
 </div>
 
-<%= link_to 'Edit', edit_record_path(@record) %> |
-<%= link_to 'Back', records_path %>
+<%= form_for @record do |f| %>
+  <% if @record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+      <% @record.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :raw, :placeholder => "Categories" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :created_at, :placeholder => "Created at" %>
+  </div>
+  <!-- TODO: Add time zone -->
+
+  <div class="actions">
+    <%= link_to "delete", @record, :method => :delete, :confirm => "Sure?" %>
+    <%= f.submit %>
+  </div>
+<% end %>
