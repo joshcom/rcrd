@@ -8,8 +8,11 @@
   margin: 0 0 12px;
   input {
     display: block;
-    width: 590px;
-    padding: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 6px;
     margin: 0;
     border: solid 1px #ccc;
     font-size: 18px;

@@ -25,7 +25,8 @@ var cats = [];
         <%= f.text_field :raw, {placeholder: "e.g. workout, swim, Masters, Koret", id: "cat-input"} %>
       </div>
       <%= f.text_field :created_at, :placeholder => "Created at" %>
-    <%= f.submit %>
+      <%= f.hidden_field :user_id, :value => 2 %>
+      <%= f.submit %>
     <% end %>
   </div>
 </div>
