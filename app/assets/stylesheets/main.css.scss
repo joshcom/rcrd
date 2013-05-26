@@ -4,7 +4,11 @@
 .margin-top { margin-top: 2em; }
 .margin-bottom { margin-bottom: 2em; }
 .padding-all { padding: 0.8em 1em; }
+
+.hefty { font-size: 24px; }
 .large { font-size: 18px; }
+.small { font-size: 12px; }
+.tiny { font-size: 10px; }
 
 .input-wrap {
   margin: 0 0 12px;
@@ -106,12 +110,12 @@ div.boxes {
   border-right: solid 2px rgba(0, 0, 0, 0); 
   border-bottom: solid 2px hsl(230, 80%, 20%); 
   border-radius: 4px;
-  padding: 8px 0;
-  margin: 0 6px 6px 0;
+  padding: .6em 0;
+  margin: 0 .6em .8em 0;
   -webkit-user-select: none;
   user-select: none;
   &:not(.mag) {
-      padding-left: 12px;
+      padding-left: .8em;
   }
   i {
     font-style: normal;
@@ -120,7 +124,7 @@ div.boxes {
     background-color: hsl(230, 50%, 34%); 
     border-right: solid 1px hsl(230, 80%, 45%); 
     padding: 10px 8px;
-    margin: 0 6px 0 0;
+    margin: 0 .4em 0 0;
   }
   &:hover {
     background-color: hsl(230, 80%, 63%); 
@@ -137,7 +141,7 @@ div.boxes {
     }
   }
   > span {
-    margin: 0 12px 0 0;
+    margin: 0 .8em 0 0;
   }
   &.selected {
     background-color: hsl(230, 40%, 60%); 

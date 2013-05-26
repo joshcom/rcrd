@@ -46,17 +46,5 @@ var cats = [];
 
 <div class="margin-y">
   <h1>Last 7 days</h1>
-  <% last_day = '0' %>
-  <% @last_7_days.each do |record| %>
-    <div class="day">
-      <% if last_day != record.created_at.strftime('%d') %>
-        <h4 class="span"><%= record.created_at.strftime '%A' %></h4>
-      <% end %>
-      <% last_day = record.created_at.strftime '%d' %>
-      <%= link_to record.created_at.strftime('%c'), record %>
-      <% record.cats_from_raw.each do |cat| %>
-        <span class="cat" style="background-color: hsl(<%= record.hue %>, 80%, 60%);"><span><%= cat %></span></span>
-      <% end %>
-    </div>
-  <% end %>
+    <%= render :partial => "shared/records", :locals => {:records => @last_7_days} %>
 </div>

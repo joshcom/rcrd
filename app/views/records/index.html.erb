@@ -2,19 +2,4 @@
   <h2>Last 30 days</h2>
 </div>
 
-<% last_day = '0' %>
-<% @records.each do |record| %>
-  <div class="day">
-    <% if last_day != record.created_at.strftime('%d') %>
-      <h4><%= record.created_at.strftime '%b %e' %></h4>
-    <% end %>
-    <% last_day = record.created_at.strftime '%d' %>
-    <% record.cats_from_raw.each do |cat| %>
-      <a href="/" class="cat" style="
-        background-color: hsl(<%= record.hue %>, 80%, 60%); 
-        text-shadow: 0 -1px 1px hsl(<%= record.hue %>, 80%, 20%);
-        border-bottom: solid 2px hsl(<%= record.hue %>, 80%, 20%); 
-      "><span><%= cat %></span></a>
-    <% end %>
-  </div>
-<% end %>
+<%= render :partial => "shared/records", :locals => {:records => @records} %>
