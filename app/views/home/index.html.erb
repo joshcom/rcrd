@@ -1,9 +1,15 @@
-<div class="boxes">
+<div class="boxes clearfix margin-bottom">
   <% @cats.each do |cat| %>
     <div class="blocks clearfix">
       <% cat[:days].each do |key, count| %>
-        <div class="day <%= cat[:color] if count.to_i > 0 %>" data-date="<%= key %>"></div>
+        <div class="day " style="<%= 'background-color: #'+cat[:color]+';' if count.to_i > 0 %>" data-date="<%= key %>"></div>
       <% end %>
     </div>
+  <% end %>
+</div>
+
+<div class="legend margin-top">
+  <% @cats.each do |cat| %>
+    <span class="padding-all" style="color: white; opacity: 0.2; <%= 'background-color: #'+cat[:color]+';' %>"><%= cat[:name] %></span>
   <% end %>
 </div>

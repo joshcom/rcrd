@@ -11,7 +11,7 @@ class RecordsController < ApplicationController
   end
 
   def new
-    @record = Record.new
+    @record = User.find(2).records.new
     @trending = Record.get_trending_cats
     @last_7_days = Record.where('created_at > ?', Date.today - 7.days).order('created_at DESC')
   end

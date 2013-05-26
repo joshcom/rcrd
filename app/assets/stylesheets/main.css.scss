@@ -1,7 +1,9 @@
 // Attempting to have a modular CSS base style framework like BH
 
 .margin-y { margin-top: 2em; margin-bottom: 2em; }
+.margin-top { margin-top: 2em; }
 .margin-bottom { margin-bottom: 2em; }
+.padding-all { padding: 0.8em 1em; }
 .large { font-size: 18px; }
 
 .input-wrap {
