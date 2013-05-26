@@ -12,12 +12,14 @@ end
 Nassau::Application.routes.draw do
   resources :records
   resources :cats
+  resources :users
   
   get 'cats/:name' => 'cats#show', :as => :cat
   
   get 'public' => 'home#public', as: 'public'
   get 'trends' => 'home#trends', as: 'trends'
   get 'input' => 'home#input', as: 'input'
+  get 'settings' => 'users#edit', as: 'settings'
 
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"

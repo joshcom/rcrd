@@ -24,25 +24,14 @@ var cats = [];
       <div class="input-wrap">
         <%= f.text_field :raw, {placeholder: "e.g. workout, swim, Masters, Koret", id: "cat-input"} %>
       </div>
-      <%= f.text_field :created_at, :placeholder => "Created at" %>
+      <div class="input-wrap">
+        <%= f.text_field :created_at, :placeholder => "Created at", :value => Time.now.strftime('%c') %>
+      </div>
       <%= f.hidden_field :user_id, :value => 2 %>
       <%= f.submit %>
     <% end %>
   </div>
 </div>
-
-<div class="margin-y clearfix">
-  <div class="guesses">
-  </div>
-  <!--
-  <div class="preview">
-  </div>
-  -->
-  <span class="time">7:00pm Tuesday, June 7</span>
-  <span id="go">GO</span>
-  <span id="go">clear</span>
-</div>
-
 
 <div class="margin-y">
   <h1>Last 7 days</h1>

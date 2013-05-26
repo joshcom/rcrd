@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index 
     @num_days = 60  
     @cats = [
@@ -12,15 +13,10 @@ class HomeController < ApplicationController
       cat[:days] = {}
       cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
     end
-  end
 
-  def public 
-  end
-
-  def trends 
-    cats = ['swim', 'run', 'drink']
+    trend_cats = ['swim', 'run', 'drink']
     @trends = [] 
-    cats.each do |cat|
+    trend_cats.each do |cat|
       trend = {} 
       trend[:name] = cat
       trend[:last_4_weeks] = Record.get_weekly_frequency_since(Date.today - 4.weeks, cat)
@@ -29,4 +25,5 @@ class HomeController < ApplicationController
       @trends << trend
     end
   end
+
 end

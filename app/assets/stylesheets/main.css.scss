@@ -2,6 +2,7 @@
 
 .margin-y { margin-top: 2em; margin-bottom: 2em; }
 .margin-top { margin-top: 2em; }
+.margin-top-2x { margin-top: 4em; }
 .margin-bottom { margin-bottom: 2em; }
 .padding-all { padding: 0.8em 1em; }
 
@@ -11,17 +12,19 @@
 .tiny { font-size: 10px; }
 
 .input-wrap {
-  margin: 0 0 12px;
+  label {
+    display: block;
+    margin: 0 0 .2em;
+  }
   input {
     display: block;
     width: 100%;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    padding: 6px;
+    padding: .4em;
     margin: 0;
     border: solid 1px #ccc;
-    font-size: 18px;
   }
 }
 
@@ -129,6 +132,7 @@ div.boxes {
   &:hover {
     background-color: hsl(230, 80%, 63%); 
     cursor: pointer;
+    color: #eee;
   }
   &:active {
     background-color: hsl(230, 80%, 60%); 
