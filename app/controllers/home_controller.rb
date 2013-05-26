@@ -5,7 +5,8 @@ class HomeController < ApplicationController
       {name: 'swim', color: 'blue'}, 
       {name: 'meet', color: 'light-blue'}, 
       {name: 'run', color: 'green'}, 
-      {name: 'drink', color: 'red'}] 
+      {name: 'drink', color: 'red'}, 
+      {name: 'movie', color: 'purple'}] 
     @cats.each do |cat|
       puts cat[:name]
       cat[:days] = {}
