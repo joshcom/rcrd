@@ -11,8 +11,7 @@ end
 
 Nassau::Application.routes.draw do
   resources :records
-  resources :users
-  resources :sessions
+  resources :cats
   
   get 'cats/:name' => 'cats#show', :as => :cat
   

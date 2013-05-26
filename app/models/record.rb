@@ -3,6 +3,10 @@ class Record < ActiveRecord::Base
   has_many :cats
   accepts_nested_attributes_for :cats, :allow_destroy => true
 
+  def self.get_cats(name)
+    self.where("raw LIKE ?", '%'+name+'%')
+  end
+
   def self.get_cat_count_per_day(num_days, cat)
 
     num_days -= 1
