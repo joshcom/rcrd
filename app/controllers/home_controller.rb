@@ -15,7 +15,7 @@ class HomeController < ApplicationController
       cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
     end
 
-    trend_cats = ['swim', 'run', 'drink']
+    trend_cats = ['workout', 'swim', 'run', 'drink']
     @trends = [] 
     trend_cats.each do |cat|
       trend = {} 
