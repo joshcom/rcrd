@@ -40,7 +40,7 @@ class Record < ActiveRecord::Base
     cat_list = {}
     Record.all.each do |record|
       record.cats_from_raw_without_mags.each do |cat|
-        cat_list[cat] = 0  if !cat_list[cat]
+        cat_list[cat] = 0 if !cat_list[cat]
         cat_list[cat] += 1
       end 
     end
@@ -52,7 +52,7 @@ class Record < ActiveRecord::Base
   end
 
   def cats_from_raw_without_mags
-    return cats_from_raw.map {|cat| cat.sub! /^\s*\d+\s*/, '' }
+   return cats_from_raw.map {|cat| cat.sub /^\s*\d+\s*/, '' }
   end
 
   def self.get_weekly_frequency_since(date, cat)
@@ -64,7 +64,6 @@ class Record < ActiveRecord::Base
    minutes = self.created_at.strftime('%k').to_f * 60.0
    minutes += self.created_at.strftime('%M').to_f
    ret =  (minutes / 1440.0)  * 360.0
-   puts ret 
    return ret
   end
 end
