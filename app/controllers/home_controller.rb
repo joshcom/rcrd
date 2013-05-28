@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   def index 
     @num_days = 60  
     @cats = [
+      {name: 'workout', color: '96b4fd'}, 
       {name: 'swim', color: '032780'}, 
       {name: 'meet', color: '032780'}, 
       {name: 'run', color: '009942'}, 
