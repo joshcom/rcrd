@@ -8,7 +8,7 @@ describe "Records" do
     end
     it "loads a record" do
       one = Record.create!(raw: "workout, swim")
-      get 'records/'+one.id.to_s
+      get record_path one
       response.status.should be(200)
     end
   end

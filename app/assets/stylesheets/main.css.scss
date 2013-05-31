@@ -1,15 +1,32 @@
 // Attempting to have a modular CSS base style framework like BH
 
+table { width: 100%; }
+
 .margin-y { margin-top: 2em; margin-bottom: 2em; }
 .margin-top { margin-top: 2em; }
 .margin-top-2x { margin-top: 4em; }
+.margin-top-small { margin-top: 0.6em; }
+
 .margin-bottom { margin-bottom: 2em; }
+.margin-right { margin-right: 1em; }
 .padding-all { padding: 0.8em 1em; }
+
+.fixed-width-6 { width: 6em; }
 
 .hefty { font-size: 24px; }
 .large { font-size: 18px; }
+.medium { font-size: 16px; }
 .small { font-size: 12px; }
 .tiny { font-size: 10px; }
+
+// Text
+.white-text { color: white; }
+.lighter { color: #777; }
+
+.grey-bg { background-color: #f7f7f7; }
+
+.left { float: left; }
+.right { float: right; }
 
 .input-wrap {
   label {
@@ -101,8 +118,6 @@ div.boxes {
   }
 }
 
-
-
 .cat {
   display: inline-block;
   color: white;
@@ -155,38 +170,10 @@ div.boxes {
   }
 }
 
-.day {
-  margin-bottom: 6px;
-}
-
-div.trend {
-  background-color: #f7f7f7;
-  border-radius: 4px;
-  padding: 12px;
-  margin: 0 0 18px;
-  h2 {
-    font-size: 18px;
-    color: #888;
-  }
-  ul.stats {
-    margin: 18px 0 0;
-    li {
-      width: 29%;
-      display: inline-block;
-      margin:  0 0 18px;
-      span.number {
-        font-size: 20px;
-        float: left;
-        margin: 0 8px 8px 0;
-        font-weight: bold;
-      }
-      h4 {
-        font-size: 14px;
-      }
-      h5 {
-        font-weight: normal;
-        font-size: 11px;
-      }
+.trends {
+    tr {
+        td {
+            vertical-align: middle;
+        }
     }
-  }
 }

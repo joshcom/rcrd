@@ -8,31 +8,33 @@
   <% end %>
 </div>
 
-<div class="legend margin-y">
+<table class="trends margin-y">
   <% @cats.each do |cat| %>
-    <span class="padding-all" style="color: white; opacity: 0.2; <%= 'background-color: #'+cat[:color]+';' %>"><%= cat[:name] %></span>
+    <tr class="trend" style="<%= 'border-left: solid 6px #'+cat[:color]+';' %>">
+      <td class="padding-all">
+        <h2 class="left fixed-width-6"><%= cat[:name] %></h2>
+      </td>
+      <% if cat[:avgs] %>
+        <td class="padding-all">
+          <div class="hefty"><%= cat[:last_4_weeks] %></div>
+          <div class="tiny lighter">per week</div>
+          <div class="small margin-top-small"><strong>Last 4 weeks</strong></div>
+        </td>
+        <td class="padding-all">
+          <div class="hefty"><%= cat[:last_8_weeks] %></div>
+          <div class="tiny lighter">per week</div>
+          <div class="small margin-top-small"><strong>Last 8 weeks</strong></div>
+        </td>
+        <td class="padding-all">
+          <div class="hefty"><%= cat[:last_16_weeks] %></div>
+          <div class="tiny lighter">per week</div>
+          <div class="small margin-top-small"><strong>Last 16 weeks</strong></div>
+        </td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+      <% end %>
+    </div>
   <% end %>
-</div>
-
-<% @trends.each do |cat| %>
-  <div class="trend">
-    <h2><%= cat[:name] %></h2>
-    <ul class="stats">
-      <li>
-        <span class="number"><%= cat[:last_4_weeks] %></span>
-        <h4>Per week</h4>
-        <h5>Last 4 weeks</h5>
-      </li>
-      <li>
-        <span class="number"><%= cat[:last_8_weeks] %></span>
-        <h4>Per week</h4>
-        <h5>Last 8 weeks</h5>
-      </li>
-      <li>
-        <span class="number"><%= cat[:last_16_weeks] %></span>
-        <h4>Per week</h4>
-        <h5>Last 16 weeks</h5>
-      </li>
-    </ul>
-  </div>
-<% end %>
+</table>
