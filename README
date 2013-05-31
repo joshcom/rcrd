@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/jeffcarp/rcrd.png)](https://codeclimate.com/github/jeffcarp/rcrd)
+<a href="https://codeclimate.com/github/jeffcarp/rcrd"><img src="https://codeclimate.com/github/jeffcarp/rcrd.png" /></a>
 
 # rcrd
 
