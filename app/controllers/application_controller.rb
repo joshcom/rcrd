@@ -9,13 +9,17 @@ class ApplicationController < ActionController::Base
 #    authenticate_or_request_with_http_basic do |username, password|
 #     username == "jeffcarp" && password == "timanous"
 #    end
-    @current_user ||= User.find 2 # bear with me here 
+#    @current_user ||= User.find 2 # bear with me here 
   end
 
   private
   
   def set_timezone
-    Time.zone = @current_user.time_zone || "America/Los_Angeles" 
+    if @current_user
+      Time.zone = @current_user.time_zone 
+    else
+      Time.zone = "America/Los_Angeles" 
+    end
   end
   
 end
