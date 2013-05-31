@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   def index 
     @num_days = 60  
     @cats = [
+      {name: 'workout', color: '96b4fd'}, 
       {name: 'swim', color: '032780'}, 
       {name: 'meet', color: '032780'}, 
       {name: 'run', color: '009942'}, 
@@ -13,7 +14,7 @@ class HomeController < ApplicationController
       cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
     end
 
-    trend_cats = ['swim', 'run', 'drink']
+    trend_cats = ['workout', 'swim', 'run', 'drink']
     @trends = [] 
     trend_cats.each do |cat|
       trend = {} 
