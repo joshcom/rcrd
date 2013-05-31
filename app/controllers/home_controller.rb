@@ -9,7 +9,6 @@ class HomeController < ApplicationController
       {name: 'drink', color: 'D42627'}, 
       {name: 'movie', color: 'F1681E'}] 
     @cats.each do |cat|
-      puts cat[:name]
       cat[:days] = {}
       cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
     end
