@@ -1,65 +1,34 @@
 class Record < ActiveRecord::Base
   belongs_to :user
-  has_many :cats
-  accepts_nested_attributes_for :cats, :allow_destroy => true
+  attr_accessible :target
+  default_scope order 'target DESC'
 
-  def time_zone
-    # Look back in time for the first record with "time zone" we see
-    # That is our time zone
-    # If this is a time zone declaration, use this record
-=start
-    if self.raw.match('time zone')
-      record = self
-    else
-      record = Record.get_cats('time zone').where('created_at < ?', self.created_at).order('created_at DESC').limit(1).first
-    end
-    if record
-      cats = record.cats_from_raw
-      cats.delete 'time zone' # not the most elegant thing in the world
-      puts cats.first
-      puts self.raw
-      return cats.first
-    end
-=end
-    return "Tokyo"
-  end
-
-  def time_zone_obj
-    if self.time_zone
-      zone = ActiveSupport::TimeZone.new(self.time_zone)
-    end
-    if zone
-      return zone
-    else
-      return ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
-    end
-  end
-
-  def local_created_at
-    puts self.time_zone_obj
-    puts self.raw
-    puts
-    self.created_at.in_time_zone(self.time_zone_obj)
-  end
-
-  def self.current_time_zone_text
-    record = self.get_cats('time zone').order('created_at DESC').limit(1).first
+  def time_zone_text
+    record = Record.where("raw LIKE ? AND target < ?", '%time zone%', self.target).order('target DESC').limit(1).first
     if record
       cats = record.cats_from_raw
       cats.delete 'time zone' # not the most elegant thing in the world
       cats.first 
     else
-      nil
+      "Pacific Time (US & Canada)" 
     end
   end
 
+  def time_zone
+    ActiveSupport::TimeZone.new(self.time_zone_text)
+  end
+
+  def local_target
+    self.target.in_time_zone(self.time_zone)
+  end
+
+  def self.current_time_zone_text
+    # Get most recent record
+    # return time zone of that record
+  end
+
   def self.current_time_zone
-    zone = ActiveSupport::TimeZone.new(self.current_time_zone_text)
-    if zone
-      return zone
-    else
-      return ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
-    end
+      ActiveSupport::TimeZone.new(self.current_time_zone_text)
   end
 
   def self.get_cats(name)
@@ -70,7 +39,7 @@ class Record < ActiveRecord::Base
 
     num_days -= 1
 
-    query = "SELECT date_trunc('day', (created_at at time zone 'PDT')) AS day, count(*) AS record_count FROM records WHERE created_at > ((now() - interval '#{num_days} days') at time zone 'PDT') AND user_id = 2 AND raw LIKE '%#{cat}%' GROUP BY 1 ORDER BY 1"
+    query = "SELECT date_trunc('day', (target at time zone 'PDT')) AS day, count(*) AS record_count FROM records WHERE target > ((now() - interval '#{num_days} days') at time zone 'PDT') AND user_id = 2 AND raw LIKE '%#{cat}%' GROUP BY 1 ORDER BY 1"
     result = ActiveRecord::Base.connection.execute(query)
 #
     days = {} 
@@ -115,13 +84,13 @@ class Record < ActiveRecord::Base
   end
 
   def self.get_weekly_frequency_since(date, cat)
-    records = Record.where("created_at > ? AND raw LIKE ?", date, '%'+cat+'%').count.to_f
+    records = Record.where("target > ? AND raw LIKE ?", date, '%'+cat+'%').count.to_f
     (records / ((Date.today - date).to_f / 7.0)).round(2)
   end
 
   def hue
-   minutes = self.created_at.strftime('%k').to_f * 60.0
-   minutes += self.created_at.strftime('%M').to_f
+   minutes = self.target.strftime('%k').to_f * 60.0
+   minutes += self.target.strftime('%M').to_f
    ret =  (minutes / 1440.0)  * 360.0
    return ret
   end

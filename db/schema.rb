@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601024910) do
+ActiveRecord::Schema.define(:version => 20130601063231) do
 
   create_table "records", :force => true do |t|
     t.integer  "record_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130601024910) do
     t.text     "raw"
     t.integer  "user_id"
     t.string   "time_zone"
+    t.datetime "target"
   end
 
   create_table "users", :force => true do |t|

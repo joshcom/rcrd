@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
   helper ApplicationHelper 
 
   def index
-    @records = Record.where('created_at > ?', Date.today - 1.month).order('created_at DESC')
+    @records = Record.where('target > ?', Date.today - 1.month).order('target DESC')
   end
 
   def show 
@@ -15,7 +15,7 @@ class RecordsController < ApplicationController
   def new
     @record = User.find(2).records.new
     @trending = Record.get_trending_cats
-    @last_7_days = Record.where('created_at > ?', Date.today - 7.days).order('created_at DESC')
+    @last_7_days = Record.where('target > ?', Date.today - 7.days).order('target DESC')
     @current_time_zone = Record.current_time_zone
   end
 

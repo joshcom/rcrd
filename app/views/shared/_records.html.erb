@@ -5,7 +5,7 @@
 
     <% if last_day != record.local_created_at.strftime('%d') %>
       <div class="span">
-        <h4><%= record.local_created_at.strftime '%A %b %d %Y' %> <span class="tiny normal"><%= record.time_zone_obj %></span></h4>
+        <h4><%= record.local_created_at.strftime '%A %b %d %Y' %> <span class="tiny normal"><%= record.time_zone %></span></h4>
         
       </div>
     <% end %>

@@ -22,8 +22,8 @@ describe Record do
   it "calculates hue" do
     one = Record.create!(raw: "workout, swim, 3200 yards")
 
-    minutes = one.created_at.strftime('%k').to_f * 60.0
-    minutes += one.created_at.strftime('%M').to_f
+    minutes = one.target.strftime('%k').to_f * 60.0
+    minutes += one.target.strftime('%M').to_f
     test_hue = (minutes / 1440.0) * 360.0
 
     expect(one.hue).to eq(test_hue)
