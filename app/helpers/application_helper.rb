@@ -9,7 +9,8 @@ module ApplicationHelper
 
   def no_mag(str)
     # TODO: this should un-pluralize as well
-    str.gsub /^\s*\d+\s*/, ''
+    str.gsub! /^\s*\d+\.*\d*\s*/, ''
+    str.singularize
   end
 
 end

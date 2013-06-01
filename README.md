@@ -4,9 +4,10 @@
 
 rcrd is a tool I built to track habits, like exercise or drinking.
 
-- Time zones
+~ Time zones
 X Authentication
 X Clean up db schema
+- Deal with cat pluralization
 
 # How I think Time Zones should work:
 

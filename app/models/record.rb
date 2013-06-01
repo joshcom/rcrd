@@ -2,6 +2,8 @@ class Record < ActiveRecord::Base
   belongs_to :user
   attr_accessible :target, :raw
   default_scope order 'target DESC'
+  validates_presence_of :raw
+  validates_presence_of :target
 
   def time_zone_text
     if self.raw.match "time zone"
@@ -83,7 +85,7 @@ class Record < ActiveRecord::Base
   end
 
   def cats_from_raw_without_mags
-   return cats_from_raw.map {|cat| cat.sub /^\s*\d+\s*/, '' }
+   return cats_from_raw.map {|cat| cat.sub /^\s*\d+\.*\d*\s*/, '' }
   end
 
   def self.get_weekly_frequency_since(date, cat)

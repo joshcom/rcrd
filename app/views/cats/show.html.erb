@@ -1,10 +1,9 @@
 
 
 <div class="margin-bottom">
-  <span class="cat small"><span>swim</span></span>
-  <span class="cat small"><span>drink</span></span>
-  <span class="cat small"><span>popular</span></span>
-  <span class="cat small"><span>cats</span></span>
+  <% @trending_cats.each do |cat| %>
+    <a class="cat small" href="/cats/<%= cat %>"><span><%= cat %></span></a>
+  <% end %>
 </div>
 
 <div class="margin-bottom">
