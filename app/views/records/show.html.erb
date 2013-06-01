@@ -23,7 +23,7 @@
     <%= f.text_field :raw, :placeholder => "Raw" %>
   </div>
   <div class="field">
-    <%= f.text_field :created_at, :placeholder => "Created at", value: @record.local_created_at %>
+    <%= f.text_field :created_at, :placeholder => "Created at", value: @record.created_at.utc%>
   </div>
   <div class="field margin-y">
     <p><%= f.label :time_zone %>: <span class="tiny">(determined by most recent record with "time zone" cat)</span></p>

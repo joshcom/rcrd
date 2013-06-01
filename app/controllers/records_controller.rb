@@ -32,6 +32,7 @@ class RecordsController < ApplicationController
   end
 
   def update
+    puts params[:record].inspect
     @record = Record.find(params[:id])
     if @record.update_attributes(params[:record])
       redirect_to @record, notice: 'Record was successfully updated.'
