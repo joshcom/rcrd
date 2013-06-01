@@ -11,46 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328171928) do
-
-  create_table "categories", :force => true do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "cats", :force => true do |t|
-    t.integer  "cat_id"
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "magnitude"
-    t.integer  "karma"
-    t.integer  "record_id"
-  end
-
-  create_table "cats_records", :id => false, :force => true do |t|
-    t.integer  "cat_id"
-    t.integer  "record_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "evil_wizards", :force => true do |t|
-    t.integer  "cat_id"
-    t.integer  "magnitude"
-    t.integer  "karma"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "karmas", :force => true do |t|
-    t.string   "name"
-    t.decimal  "points",     :precision => 8, :scale => 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-  end
+ActiveRecord::Schema.define(:version => 20130601024910) do
 
   create_table "records", :force => true do |t|
     t.integer  "record_id"
@@ -60,14 +21,6 @@ ActiveRecord::Schema.define(:version => 20120328171928) do
     t.text     "raw"
     t.integer  "user_id"
     t.string   "time_zone"
-  end
-
-  create_table "sorcerers", :force => true do |t|
-    t.integer  "cat_id"
-    t.integer  "magnitude"
-    t.integer  "karma"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
@@ -80,16 +33,6 @@ ActiveRecord::Schema.define(:version => 20120328171928) do
     t.datetime "remember_me_token_expires_at"
     t.string   "time_zone"
     t.integer  "karma"
-  end
-
-  add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
-
-  create_table "wizards", :force => true do |t|
-    t.integer  "cat_id"
-    t.integer  "magnitude"
-    t.integer  "karma"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end
