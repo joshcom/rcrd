@@ -1,5 +1,7 @@
 class RecordsController < ApplicationController
 
+  before_filter :authenticate_admin
+
   helper ApplicationHelper 
 
   def index
