@@ -1,6 +1,10 @@
 // Attempting to have a modular CSS base style framework like BH
 
+
+// ELEMENTS
 table { width: 100%; }
+h1, h2, h3, h4, h5 { margin-bottom: 0.3em; }
+h1 { font-size: 1.6em; }
 
 .margin-y { margin-top: 2em; margin-bottom: 2em; }
 .margin-top { margin-top: 2em; }
@@ -23,6 +27,7 @@ table { width: 100%; }
 .white-text { color: white; }
 .green-text { color: green; }
 .lighter { color: #777; }
+.normal { font-weight: normal; }
 
 .grey-bg { background-color: #f7f7f7; }
 
@@ -52,7 +57,6 @@ table { width: 100%; }
   border-bottom: solid 1px #ccc;
 }
 
-h1 { font-size: 1.6em; }
 
 
 

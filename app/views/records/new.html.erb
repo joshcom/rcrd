@@ -25,11 +25,12 @@ var cats = [];
         <%= f.text_field :raw, {placeholder: "e.g. workout, swim, Masters, Koret", id: "cat-input"} %>
       </div>
       <div class="input-wrap">
-        <%= f.text_field :created_at, :placeholder => "Created at", :value => Time.zone.now.strftime('%c') %>
+        <%= f.text_field :created_at, :placeholder => "Created at", :value => ActiveSupport::TimeZone.new(@current_time_zone).now.strftime('%F %R') %>
       </div>
       <%= f.hidden_field :user_id, :value => 2 %>
       <%= f.submit %>
     <% end %>
+    <p>Current time zone: <%= ActiveSupport::TimeZone.new(@current_time_zone) %></p>
   </div>
 </div>
 

@@ -3,6 +3,37 @@ class Record < ActiveRecord::Base
   has_many :cats
   accepts_nested_attributes_for :cats, :allow_destroy => true
 
+  def time_zone
+    # Look back in time for the first record with "time zone" we see
+    # That is our time zone
+    # TODO: Ensure the time zone is valid
+    record = Record.get_cats('time zone').where('created_at < ?', self.created_at).order('created_at DESC').limit(1).first
+    if record
+      cats = record.cats_from_raw
+      cats.delete 'time zone' # not the most elegant thing in the world
+      puts cats.first
+      return cats.first
+    else
+      puts "PST"
+      return "Pacific Time (US & Canada)" 
+    end
+  end
+
+  def local_created_at
+    self.created_at.in_time_zone(ActiveSupport::TimeZone.new(self.time_zone))
+  end
+
+  def self.current_time_zone
+    record = self.get_cats('time zone').order('created_at DESC').limit(1).first
+    if record
+      cats = record.cats_from_raw
+      cats.delete 'time zone' # not the most elegant thing in the world
+      cats.first 
+    else
+      nil
+    end
+  end
+
   def self.get_cats(name)
     self.where("raw LIKE ?", '%'+name+'%')
   end

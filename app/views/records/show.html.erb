@@ -19,13 +19,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.text_field :raw, :placeholder => "Categories" %>
+  <div class="input-wrap margin-y">
+    <%= f.text_field :raw, :placeholder => "Raw" %>
   </div>
   <div class="field">
-    <%= f.text_field :created_at, :placeholder => "Created at" %>
+    <%= f.text_field :created_at, :placeholder => "Created at", value: @record.local_created_at %>
   </div>
-  <!-- TODO: Add time zone -->
+  <div class="field margin-y">
+    <p><%= f.label :time_zone %>: <span class="tiny">(determined by most recent record with "time zone" cat)</span></p>
+    <p><%= @record.time_zone %></p>
+  </div>
 
   <div class="actions">
     <%= link_to "delete", @record, :method => :delete, :confirm => "Sure?" %>

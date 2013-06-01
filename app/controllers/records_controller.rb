@@ -16,11 +16,13 @@ class RecordsController < ApplicationController
     @record = User.find(2).records.new
     @trending = Record.get_trending_cats
     @last_7_days = Record.where('created_at > ?', Date.today - 7.days).order('created_at DESC')
+    @current_time_zone = Record.current_time_zone
   end
 
   def create      
     @record = Record.new(params[:record])
-    # TODO: set record time zone
+    # TODO: set record time zone 
+    @record.time_zone = Record.current_time_zone
     if @record.save
       redirect_to action: 'new', notice: 'Record was successfully created.'
     else        
@@ -41,6 +43,6 @@ class RecordsController < ApplicationController
   def destroy
     @record = Record.find(params[:id])
     @record.destroy
-    redirect_to :records
+    redirect_to action: 'new', notice: 'Record was successfully deleted.'
   end
 end
