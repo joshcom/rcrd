@@ -21,6 +21,7 @@ table { width: 100%; }
 
 // Text
 .white-text { color: white; }
+.green-text { color: green; }
 .lighter { color: #777; }
 
 .grey-bg { background-color: #f7f7f7; }
@@ -174,6 +175,7 @@ div.boxes {
     tr {
         td {
             vertical-align: middle;
+            
         }
     }
 }

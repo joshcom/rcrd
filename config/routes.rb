@@ -10,8 +10,9 @@ end
 
 
 Nassau::Application.routes.draw do
-  resources :records
   resources :cats
+  resources :records
+  resources :sessions
   resources :users
   
   get 'cats/:name' => 'cats#show', :as => :cat
@@ -22,7 +23,6 @@ Nassau::Application.routes.draw do
   get 'settings' => 'users#edit', as: 'settings'
 
   get "logout" => "sessions#destroy", :as => "logout"
-  get "login" => "sessions#new", :as => "login"
 
   root :to => "home#index"#, :constraints => LoggedInConstraint.new(false)
 #root :to => "home#dashboard", :constraints => LoggedInConstraint.new(true)

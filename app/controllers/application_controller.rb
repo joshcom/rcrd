@@ -6,10 +6,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate
-#    authenticate_or_request_with_http_basic do |username, password|
-#     username == "jeffcarp" && password == "timanous"
-#    end
-#    @current_user ||= User.find 2 # bear with me here 
+    @current_user ||= User.find(cookies.signed[:user_id]) if cookies.signed[:user_id]
   end
 
   private

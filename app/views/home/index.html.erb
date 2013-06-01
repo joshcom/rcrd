@@ -16,9 +16,9 @@
       </td>
       <% if cat[:avgs] %>
         <td class="padding-all">
-          <div class="hefty"><%= cat[:last_4_weeks] %></div>
+          <div class="hefty"><%= cat[:last_16_weeks] %></div>
           <div class="tiny lighter">per week</div>
-          <div class="small margin-top-small"><strong>Last 4 weeks</strong></div>
+          <div class="small margin-top-small"><strong>Last 16 weeks</strong></div>
         </td>
         <td class="padding-all">
           <div class="hefty"><%= cat[:last_8_weeks] %></div>
@@ -26,9 +26,9 @@
           <div class="small margin-top-small"><strong>Last 8 weeks</strong></div>
         </td>
         <td class="padding-all">
-          <div class="hefty"><%= cat[:last_16_weeks] %></div>
+          <div class="hefty"><%= cat[:last_4_weeks] %></div>
           <div class="tiny lighter">per week</div>
-          <div class="small margin-top-small"><strong>Last 16 weeks</strong></div>
+          <div class="small margin-top-small"><strong>Last 4 weeks</strong></div>
         </td>
       <% else %>
         <td></td>

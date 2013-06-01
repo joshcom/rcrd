@@ -1,20 +1,15 @@
 class SessionsController < ApplicationController
-  def new
-    render :layout => 'home'
-  end
-  
-  def create
-    user = login(params[:email], params[:password], params[:remember_me])
-    if user
-      redirect_back_or_to root_url, :notice => "Logged in!"
-    else
-      flash.now.alert = "Credentials invalid"
-      render :new
+
+  def new 
+    if params[:passcode] == ENV["RCRD_PASSCODE"]
+      cookies.permanent.signed[:user_id] = 2
     end
+    redirect_back_or_to root_url
   end
   
   def destroy
-    logout
-    redirect_to root_url, :notice => "Logged out."
+    cookies.permanent.signed[:user_id] = nil
+    redirect_to root_url
   end
+
 end

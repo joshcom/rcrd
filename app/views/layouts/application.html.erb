@@ -10,11 +10,13 @@
   <div id="everything">
     <header class="clearfix">
       <h1><a href="/"><%= image_tag('logo.png') %></a></h1>
-      <ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/records/new">records</a></li>
-        <li><a href="/settings">settings</a></li>
-      </ul>
+      <% if @current_user %>
+        <ul>
+          <li><a href="/">home</a></li>
+          <li><a href="/records/new">records</a></li>
+          <li><a href="/settings">settings</a></li>
+        </ul>
+      <% end %>
     </header>
     <%= yield %>
   </div>
