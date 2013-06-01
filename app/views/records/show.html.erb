@@ -1,37 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<div class="margin-bottom">
+<div class="margin-y">
   <% @record.cats_from_raw.each do |cat| %>
     <span class="cat large" style="<%= style_info(@record.hue) %>"><span><%= cat %></span></span>
   <% end %>
 </div>
 
-<%= form_for @record do |f| %>
-  <% if @record.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@record.errors.count, "error") %> prohibited this record from being saved:</h2>
-
-      <ul>
-      <% @record.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="input-wrap margin-y">
-    <%= f.text_field :raw, :placeholder => "Raw" %>
-  </div>
-  <div class="field">
-    <%= f.text_field :created_at, :placeholder => "Created at", value: @record.created_at.utc%>
-  </div>
-  <div class="field margin-y">
-    <p><%= f.label :time_zone %>: <span class="tiny">(determined by most recent record with "time zone" cat)</span></p>
-    <p><%= @record.time_zone %></p>
-  </div>
-
-  <div class="actions">
-    <%= link_to "delete", @record, :method => :delete, :confirm => "Sure?" %>
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class="margin-y clearfix">
+  <%= render 'form' %>
+  <%= link_to "delete", @record, method: :delete, confirm: "Sure?" %>
+</div>

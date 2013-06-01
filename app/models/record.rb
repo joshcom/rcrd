@@ -1,10 +1,14 @@
 class Record < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :target
+  attr_accessible :target, :raw
   default_scope order 'target DESC'
 
   def time_zone_text
-    record = Record.where("raw LIKE ? AND target < ?", '%time zone%', self.target).order('target DESC').limit(1).first
+    if self.raw.match "time zone"
+      record = self
+    else
+      record = Record.where("raw LIKE ? AND target < ?", '%time zone%', self.target).order('target DESC').limit(1).first
+    end
     if record
       cats = record.cats_from_raw
       cats.delete 'time zone' # not the most elegant thing in the world
@@ -23,12 +27,11 @@ class Record < ActiveRecord::Base
   end
 
   def self.current_time_zone_text
-    # Get most recent record
-    # return time zone of that record
+    Record.limit(1).first.time_zone_text 
   end
 
   def self.current_time_zone
-      ActiveSupport::TimeZone.new(self.current_time_zone_text)
+    ActiveSupport::TimeZone.new(self.current_time_zone_text)
   end
 
   def self.get_cats(name)

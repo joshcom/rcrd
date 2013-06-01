@@ -7,31 +7,7 @@ var cats = [];
 </script>
 
 <div class="margin-y clearfix">
-  <div class="induction">
-    <%= form_for @record do |f| %>
-      <% if @record.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@record.errors.count, "error") %> prohibited this record from being saved:</h2>
-
-          <ul>
-          <% @record.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="input-wrap">
-        <%= f.text_field :raw, {placeholder: "e.g. workout, swim, Masters, Koret", id: "cat-input"} %>
-      </div>
-      <div class="input-wrap">
-        <%= f.text_field :created_at, :placeholder => "Created at", :value => @current_time_zone.now.strftime('%F %R') %>
-      </div>
-      <%= f.hidden_field :user_id, :value => 2 %>
-      <%= f.submit %>
-    <% end %>
-    <p>Current time zone: <%= @current_time_zone %></p>
-  </div>
+  <%= render 'form' %>
 </div>
 
 <div class="margin-y">
