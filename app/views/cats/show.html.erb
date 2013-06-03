@@ -7,7 +7,9 @@
 </div>
 
 <div class="margin-bottom">
-  <span class="cat hefty"><span><%= @name %></span></span>
+  <div>
+    <span class="cat hefty"><span><%= @name %></span></span>
+  </div>
 </div>
 
 <%= render :partial => "shared/records", :locals => {:records => @records} %>
