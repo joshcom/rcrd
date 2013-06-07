@@ -8,6 +8,13 @@
 </head>
 <body>
   <div id="everything">
+    <div class="notice blue-bg white-text">
+      <% if params[:notice] %>
+        <div class="margin-all" style="<%= style_info_now %>">
+          <%= params[:notice] %>
+        </div>
+      <% end %>
+    </div>
     <header class="clearfix">
       <h1><a href="/"><%= image_tag('logo.png') %></a></h1>
       <% if @current_user %>

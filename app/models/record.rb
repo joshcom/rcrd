@@ -1,12 +1,11 @@
 class Record < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :target, :raw
+  attr_accessible :target, :raw, :user_id
   default_scope order 'target DESC'
-  validates_presence_of :raw
-  validates_presence_of :target
+  validates_presence_of :raw, :target, :user_id
 
   def time_zone_text
-    if self.raw.match "time zone"
+    if self.raw && self.raw.match("time zone")
       record = self
     else
       record = Record.where("raw LIKE ? AND target < ?", '%time zone%', self.target).order('target DESC').limit(1).first
@@ -28,6 +27,13 @@ class Record < ActiveRecord::Base
     self.target.in_time_zone(self.time_zone)
   end
 
+  def local_target=(trg)
+    puts "TESTING"
+    puts trg
+    self.target = trg + self.time_zone.utc_offset.seconds    
+  end
+
+  # Not sure if these may need to be deprecated
   def self.current_time_zone_text
     Record.limit(1).first.time_zone_text 
   end

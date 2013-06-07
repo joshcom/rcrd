@@ -17,12 +17,10 @@
         <%= f.text_field :raw, {placeholder: "e.g. workout, swim, Masters, Koret", id: "cat-input"} %>
       </div>
       <div class="field">
-        <%= f.datetime_select :target %>
+        <% #= #f.datetime_select :local_target %>
       </div>
-      <%= f.hidden_field :selected_with_timezone, value: @current_time_zone_text %>
       <%= f.hidden_field :user_id, :value => 2 %>
-      <%= f.hidden_field :time_zone, :value => '' %>
       <%= f.submit %>
     <% end %>
-    <p>Current time zone: <%= @current_time_zone %></p>
+    <p>Current time zone: <%= @record.time_zone_text %></p>
   </div>
