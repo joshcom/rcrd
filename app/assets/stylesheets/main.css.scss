@@ -68,6 +68,14 @@ p { margin-bottom: 0.6em; }
 
 /* one-off styles */
 
+h1.logo {
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 48px;
+    letter-spacing: -1px;
+    color: #555;
+    margin: 0;
+}
+
 
 #everything {
   font-family: "Lucida Grande", "Verdana", sans-serif;
@@ -78,7 +86,7 @@ p { margin-bottom: 0.6em; }
 }
 header {
   border-bottom: solid 1px #ccc;
-  padding: 18px 0 12px;
+  padding: 18px 0 6px;
   margin: 0 0 18px;
   h1 {
     float: left;

@@ -22,8 +22,13 @@ class RecordsController < ApplicationController
     puts params[:record].inspect
 
     @record = Record.new(params[:record])
+#    @record.target = Time.now.utc + Record.current_time_zone.utc_offset.seconds    
 
     if @record.save
+      puts "TZ"
+      puts @record.time_zone
+      @record.local_target = Time.now
+      @record.save
       redirect_to action: 'new', notice: 'Record was successfully created.'
     else        
       @records = Record.all
