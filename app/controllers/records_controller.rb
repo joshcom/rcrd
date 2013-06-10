@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
     if @record.save
       puts "TZ"
       puts @record.time_zone
-      @record.local_target = Time.now
+      @record.local_target = Time.now.utc
       @record.save
       redirect_to action: 'new', notice: 'Record was successfully created.'
     else        
