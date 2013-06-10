@@ -5,10 +5,8 @@ class HomeController < ApplicationController
     @cats = [
       {name: 'workout', color: '96b4fd', avgs: true}, 
       {name: 'swim', color: '032780', avgs: true}, 
-      {name: 'meet', color: '032780'}, 
       {name: 'run', color: '009942', avgs: true}, 
-      {name: 'drink', color: 'D42627', avgs: true}, 
-      {name: 'movie', color: 'F1681E'}] 
+      {name: 'drink', color: 'D42627', avgs: true}] 
     @cats.each do |cat|
       cat[:days] = {}
       cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
