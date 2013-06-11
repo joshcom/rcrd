@@ -29,9 +29,11 @@ class Record < ActiveRecord::Base
   end
 
   def local_target=(trg)
+    # now not being used in records_controller
     puts "TESTING"
     puts trg
-    self.target = trg - self.time_zone.utc_offset.seconds    
+    self.target = trg # .in_time_zone(ActiveSupport::TimeZone.new("UTC")) # ALSO TESTING # - self.time_zone.utc_offset.seconds    
+    
   end
 
   # Not sure if these may need to be deprecated
