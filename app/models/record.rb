@@ -4,6 +4,7 @@ class Record < ActiveRecord::Base
   default_scope order 'target DESC'
   validates_presence_of :raw, :user_id #, :target
 
+  # ✓ 2
   def time_zone_text
     if self.raw && self.raw.match("time zone")
       record = self
@@ -20,14 +21,17 @@ class Record < ActiveRecord::Base
     end
   end
 
+  # ✗ 
   def time_zone
     ActiveSupport::TimeZone.new(self.time_zone_text)
   end
 
+  # ✗ 
   def local_target
     self.target.in_time_zone(self.time_zone)
   end
 
+  # ✗ 
   def local_target=(trg)
     # now not being used in records_controller
     puts "TESTING"
@@ -36,19 +40,23 @@ class Record < ActiveRecord::Base
     
   end
 
+  # ✗ 
   # Not sure if these may need to be deprecated
   def self.current_time_zone_text
     Record.limit(1).first.time_zone_text 
   end
 
+  # ✗ 
   def self.current_time_zone
     ActiveSupport::TimeZone.new(self.current_time_zone_text)
   end
 
+  # ✓
   def self.get_cats(name)
     self.where("raw LIKE ?", '%'+name+'%')
   end
 
+  # ✗ 
   def self.get_cat_count_per_day(num_days, cat)
 
     num_days -= 1
@@ -71,12 +79,14 @@ class Record < ActiveRecord::Base
     return days
   end
 
+  # ✗ 
   def self.get_trending_cats
     cat_freqs = self.get_list_of_cat_frequencies
     cat_freqs.sort_by {|k,v| v}
     return cat_freqs.keys[0..40]
   end
 
+  # ✗ 
   def self.get_list_of_cat_frequencies
     # Go through all records
     cat_list = {}
@@ -89,19 +99,23 @@ class Record < ActiveRecord::Base
     return cat_list
   end
 
+  # ✓
   def cats_from_raw
     (self.raw || '').split(/,/).map {|cat| cat.strip}
   end
 
+  # ✓
   def cats_from_raw_without_mags
    return cats_from_raw.map {|cat| cat.sub /^\s*\d+\.*\d*\s*/, '' }
   end
 
+  # ✗ 
   def self.get_weekly_frequency_since(date, cat)
     records = Record.where("target > ? AND raw LIKE ?", date, '%'+cat+'%').count.to_f
     (records / ((Date.today - date).to_f / 7.0)).round(2)
   end
 
+  # ✓
   def hue
    minutes = self.target.strftime('%k').to_f * 60.0
    minutes += self.target.strftime('%M').to_f
