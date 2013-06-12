@@ -3,7 +3,7 @@
 <div class="margin-y">
   <div class="margin-bottom-small"><%= @record.local_target.strftime('%l:%M%P') %></div>
   <% @record.cats_from_raw.each do |cat| %>
-    <span class="cat large" style="<%= style_info(@record.hue) %>"><span><%= cat %></span></span>
+    <%= render partial: "shared/cat", locals: {cat: cat, hue: @record.hue, size: "large"} %>
   <% end %>
 </div>
 

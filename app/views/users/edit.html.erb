@@ -35,12 +35,12 @@
   <h2>Time zones</h2>
   <p>To change time zones, you need to declare them:</p>
   <div>
-    <span class="cat small"><span>time zone</span></span>
-    <span class="cat small"><span>Tokyo</span></span>
+    <%= render partial: "shared/cat", locals: {cat: "time zone", hue: hue_now} %>
+    <%= render partial: "shared/cat", locals: {cat: "Tokyo", hue: hue_now} %>
   </div>
   <p>or</p>
   <div>
-    <span class="cat small"><span>time zone</span></span>
-    <span class="cat small"><span>Pacific Time (US & Canada)</span></span>
+    <%= render partial: "shared/cat", locals: {cat: "time zone", hue: hue_now} %>
+    <%= render partial: "shared/cat", locals: {cat: "Pacific Time (US & Canada)", hue: hue_now} %>
   </div>
 </div>

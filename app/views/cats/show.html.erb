@@ -2,14 +2,14 @@
 
 <div class="margin-bottom">
   <% @trending_cats.each do |cat| %>
-    <a class="cat small" href="/cats/<%= cat %>"><span><%= cat %></span></a>
+    <%= render partial: "shared/cat", locals: {cat: cat, hue: hue_now, size: "small"} %>
   <% end %>
 </div>
 
 <div class="margin-bottom">
   <div>
-    <span class="cat hefty"><span><%= @name %></span></span>
+    <%= render partial: "shared/cat", locals: {cat: @name, hue: hue_now, size: "hefty"} %>
   </div>
 </div>
 
-<%= render :partial => "shared/records", :locals => {:records => @records} %>
+<%= render partial: "shared/records", locals: {records: @records} %>
