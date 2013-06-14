@@ -1,10 +1,12 @@
 class SessionsController < ApplicationController
 
   def new 
-    if params[:passcode] == ENV["RCRD_PASSCODE"] && params[:id]
-      cookies.permanent.signed[:user_id] = params[:id] 
-    end
-    redirect_back_or_to root_url
+  end
+
+  def create
+    puts params[:email]
+    puts params[:password]
+    redirect_to root_url, notice: "Sorry, there was an issue logging you in."
   end
   
   def destroy
