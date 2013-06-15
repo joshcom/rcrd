@@ -1,19 +1,21 @@
 
-<h2>Log in</h2>
+<h2 class="margin-bottom-s">Log in</h2>
 
-<%= form_tag sessions_path do %>
-  <div class="input-wrap margin-bottom-small">
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email], {placeholder: "email"} %>
-  </div>
-  <div class="input-wrap margin-bottom-small">
-    <%= label_tag :password %>
-    <%= password_field_tag :password, params[:password], {placeholder: "password"} %>
-  </div>
-  <div class="actions">
-    <%= submit_tag "Log in" %>
-  </div>
-<% end %>
+<div class="margin-bottom-l">
+  <%= form_tag sessions_path do %>
+    <div class="input-wrap margin-bottom-s">
+      <%= label_tag :email %>
+      <%= text_field_tag :email, params[:email], {placeholder: "email"} %>
+    </div>
+    <div class="input-wrap margin-bottom-s">
+      <%= label_tag :password %>
+      <%= password_field_tag :password, params[:password], {placeholder: "password"} %>
+    </div>
+    <div class="actions">
+      <%= submit_tag "Log in" %>
+    </div>
+  <% end %>
+</div>
 
 <h2>Create Account</h2>
 
