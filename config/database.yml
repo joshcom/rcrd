@@ -5,5 +5,5 @@ development:
 
 test:
   adapter: postgresql
-  database: rcrd-test 
+  database: rcrd_test 
   host: localhost
