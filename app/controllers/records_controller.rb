@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
 
-  before_filter :authenticate_admin
+  before_filter :authenticate
 
   helper ApplicationHelper 
 
@@ -13,7 +13,7 @@ class RecordsController < ApplicationController
   end
 
   def new
-    @record = User.find(2).records.new(target: Record.current_time_zone.now)
+    @record = current_user.records.new(target: Record.current_time_zone.now)
     @trending = Record.get_trending_cats || []
     @last_7_days = Record.where('target > ?', Date.today - 7.days)
   end

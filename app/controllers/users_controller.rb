@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def edit
     # Me for now
-    @user = User.find(2)
+    @user = User.find current_user.id 
   end
 
   def update
