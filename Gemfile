@@ -21,3 +21,6 @@ group :assets do
   gem 'uglifier'
 end
 
+group :test do
+  gem 'rake'
+end
