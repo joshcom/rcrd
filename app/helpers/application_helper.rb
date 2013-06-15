@@ -15,11 +15,8 @@ module ApplicationHelper
     str += "text-shadow: 0 -1px 1px hsl(#{hue}, 30%, 0%);"
   end
 
-  def style_info_now
-    hue = hue_now
-    str = "background-color: hsl(#{hue}, 25%, 60%);"
-    # str += "border-bottom: solid 2px hsl(#{hue}, 80%, 20%);"
-    # str += "text-shadow: 0 -1px 1px hsl(#{hue}, 30%, 0%);"
+  def bg_color_now 
+    "background-color: hsl(#{hue_now}, 65%, 48%);"
   end
 
   def mag(str)

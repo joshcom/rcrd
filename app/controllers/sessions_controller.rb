@@ -1,17 +1,23 @@
 class SessionsController < ApplicationController
 
-  def new 
+  def new # this serves as sessions#new and user#new
+    @user = User.new
   end
 
   def create
-    puts params[:email]
-    puts params[:password]
-    redirect_to root_url, notice: "Sorry, there was an issue logging you in."
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      cookies.permanent.signed[:user_id] = user.id
+      redirect_to root_url, notice: "Logged in!"
+    else
+      flash.now.alert = "Invalid email or password"
+      redirect_to 'sessions/new' 
+    end
   end
   
   def destroy
     cookies.permanent.signed[:user_id] = nil
-    redirect_to root_url
+    redirect_to root_url, notice: "Logged out"
   end
 
 end

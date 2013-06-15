@@ -10,7 +10,7 @@
   <div id="everything">
     <div class="notice blue-bg white-text">
       <% if params[:notice] %>
-        <div class="margin-all" style="<%= style_info_now %>">
+        <div class="margin-all" style="<%= bg_color_now %>">
           <%= params[:notice] %>
         </div>
       <% end %>
@@ -23,7 +23,7 @@
           <li><a href="/records/new">records</a></li>
           <li><a href="/settings">settings</a></li>
         <% else %>
-          <li><a href="/sessions/new">log in</a></li>
+          <li><a href="/sessions/new">dashboard</a></li>
         <% end %>
       </ul>
     </header>

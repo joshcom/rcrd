@@ -1,3 +1,6 @@
+
+<h2>Log in</h2>
+
 <%= form_tag sessions_path do %>
   <div class="input-wrap margin-bottom-small">
     <%= label_tag :email %>
@@ -10,4 +13,36 @@
   <div class="actions">
     <%= submit_tag "Log in" %>
   </div>
+<% end %>
+
+<h2>Create Account</h2>
+
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h3>Form is invalid</h3>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-wrap margin-bottom-small">
+    <%= f.label :email %>
+    <%= f.text_field :email, {placeholder: "email"} %>
+  </div>
+
+  <div class="input-wrap margin-bottom-small">
+    <%= f.label :password %>
+    <%= f.password_field :password, {placeholder: "password"} %>
+  </div>
+
+  <div class="input-wrap margin-bottom-small">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :pasword_confirmation, {placeholder: "password confirmation"} %>
+  </div>
+
+  <p><%= f.submit %></p>
 <% end %>

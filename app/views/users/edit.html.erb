@@ -1,3 +1,6 @@
+
+<h2 class="margin-bottom">Preferences</h2>
+
 <%= form_for @user do |f| %>
   <% if @user.errors.any? %>
     <div class="error_messages">
@@ -11,23 +14,24 @@
   <% end %>
 
   <div class="margin-bottom-2x">
-    <h3>Preferences</h3>
 
     <div class="input-wrap margin-bottom">
       <%= f.label :email %>
       <%= f.text_field :email %>
     </div>
+    <!--
     <div class="input-wrap margin-y">
       <%= f.label :time_zone %>
       <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
     </div>
+    -->
   </div>
 
   <div class="actions"><%= f.submit %></div>
 <% end %>
 
-<div class="margin-y">
-  <p><a href="/logout">Logout</a></p>
+<div class="margin-y padding-all" style="<%= bg_color_now %>">
+  <a href="/logout" class="white">Logout</a>
 </div>
 
 <div class="margin-y">
