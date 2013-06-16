@@ -15,10 +15,10 @@ class Record < ActiveRecord::Base
       cats = record.cats_from_raw
       cats.delete 'time zone' # not the most elegant thing in the world
       zone_text = cats.first 
+      ActiveSupport::TimeZone.new(zone_text) || self.user.default_time_zone
     else
-      zone_text = "Pacific Time (US & Canada)" 
+      self.user.default_time_zone
     end
-    ActiveSupport::TimeZone.new(zone_text)
   end
 
   def local_target

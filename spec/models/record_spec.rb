@@ -9,6 +9,14 @@ describe Record do
       one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
       expect(one.time_zone).to eq(ActiveSupport::TimeZone.new("Tokyo"))
     end
+
+    it "when encountering a time zone that doesn't make sense, defaults" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      tz1 = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 10.minutes)
+      tz2 = user.records.create!(raw: "time zone, foo", target: Time.now - 5.minutes)
+      one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
+      expect(one.time_zone).to eq(ActiveSupport::TimeZone.new("Pacific Time (US & Canada)"))
+    end
   end
 
   it "correctly returns local_target" do

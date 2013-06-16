@@ -18,9 +18,13 @@ class RecordsController < ApplicationController
   end
 
   def create      
+# @record.target = Time.now.utc.strftime('%c') # old shoddy workaround
     @record = current_user.records.new(params[:record])
-    @record.target = Time.now.utc.strftime('%c') # shoddy workaround
     if @record.save
+      puts @record.inspect
+      # Convert target back to UTC
+      @record.target = current_user.current_time_zone.local_to_utc @record.target
+      @record.save
       flash[:notice] = "Record was successfully created."
       redirect_to action: 'new'
     else        
@@ -33,15 +37,18 @@ class RecordsController < ApplicationController
     @record = Record.find(params[:id])
 
     if @record.update_attributes(params[:record])
-      redirect_to @record, notice: 'Record was successfully updated.'
+      flash[:notice] = "Record was successfully updated."
+      redirect_to @record
     else
-      redirect_to @record, notice: 'Sorry, there was a problem saving.'
+      flash[:notice] = "Record was successfully updated."
+      redirect_to @record
     end
   end
 
   def destroy
     @record = Record.find(params[:id])
     @record.destroy
-    redirect_to action: 'new', notice: 'Record was successfully deleted.'
+      flash[:notice] = "."
+    redirect_to action: 'new'
   end
 end

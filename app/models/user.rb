@@ -28,7 +28,11 @@ class User < ActiveRecord::Base
 
   def current_time_zone
     r = self.records.limit(1).first
-    r ? r.time_zone : ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
+    r ? r.time_zone : self.default_time_zone
+  end
+
+  def default_time_zone
+    ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
   end
 
   def get_trending_cats
