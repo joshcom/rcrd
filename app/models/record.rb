@@ -51,24 +51,6 @@ class Record < ActiveRecord::Base
     return days
   end
 
-  def self.get_trending_cats(user)
-    cat_freqs = self.get_list_of_cat_frequencies(user)
-    cat_freqs.sort_by {|k,v| v}
-    return cat_freqs.keys[0..40]
-  end
-
-  def self.get_list_of_cat_frequencies(user)
-    # Go through all records
-    cat_list = {}
-    user.records.each do |record|
-      record.cats_from_raw_without_mags.each do |cat|
-        cat_list[cat] = 0 if !cat_list[cat]
-        cat_list[cat] += 1
-      end 
-    end
-    return cat_list
-  end
-
   def cats_from_raw
     (self.raw || '').split(/,/).map {|cat| cat.strip}
   end
@@ -83,8 +65,8 @@ class Record < ActiveRecord::Base
   end
 
   def hue
-   minutes = self.target.strftime('%k').to_f * 60.0
-   minutes += self.target.strftime('%M').to_f
+   minutes = self.local_target.strftime('%k').to_f * 60.0
+   minutes += self.local_target.strftime('%M').to_f
    ret =  (minutes / 1440.0)  * 360.0
    return ret
   end

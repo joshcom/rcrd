@@ -14,7 +14,6 @@ class RecordsController < ApplicationController
 
   def new
     @record = current_user.records.new(target: current_user.current_time_zone.now)
-    @trending = [] #Record.get_trending_cats(curr) || []
     @last_7_days = current_user.records.where('target > ?', Date.today - 7.days)
   end
 

@@ -5,7 +5,7 @@ class CatsController < ApplicationController
   def show
     @name = params[:name]
     @records = current_user.records.where("raw LIKE ?", '%'+@name+'%')
-    @trending_cats = Record.get_trending_cats(current_user)[0..7]
+    @trending_cats = current_user.get_trending_cats[0..7]
     @trending_cats.delete @name
   end
 

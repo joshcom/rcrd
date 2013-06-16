@@ -41,4 +41,5 @@
   </div>
   <p>If you've never declared a time zone, your zone is defaulted to Pacific Time. When you declare a time zone, every record after that will in the specified time zone until you declare a new time zone.</p>
   <p>I understand that this opens up the possibility for incorrect edge cases (e.g. if you submit a record, then soon after cross a time zone travelling East and declare that new time zone, the previous record will be bumped up to the new time zone). Considering the use case of rcrd, I've determined this isn't a huge problem for now.</p>
+  <p>I know this isn't great, but currently time zone names must correspond exactly to the values in the list of time zones <a href="http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html">on this page</a>.</p> 
 </section>
