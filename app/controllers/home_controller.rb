@@ -1,11 +1,5 @@
 class HomeController < ApplicationController
 
-#  def index
-    # aggregate of everyone's cats
-    # log in
-
-#  end
-
   def index 
     @num_days = 60  
     @cats = [
