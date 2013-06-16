@@ -2,11 +2,13 @@ require "spec_helper"
 
 describe Record do
 
-  it "time_zone" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    tz = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 5.minutes)
-    one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
-    expect(one.time_zone).to eq(ActiveSupport::TimeZone.new("Tokyo"))
+  describe "time_zone" do
+    it "returns correctly in a normal case" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      tz = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 5.minutes)
+      one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
+      expect(one.time_zone).to eq(ActiveSupport::TimeZone.new("Tokyo"))
+    end
   end
 
   it "correctly returns local_target" do
