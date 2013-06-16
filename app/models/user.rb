@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
   validates_presence_of :password, on: :create
-  validates_confirmation_of :password
+  validates_presence_of :password_confirmation, on: :create
+  validates_confirmation_of :password, message: "must match confirmation"
 
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -27,8 +28,7 @@ class User < ActiveRecord::Base
 
   def current_time_zone
     r = self.records.limit(1).first
-    zone = r ? r.time_zone_text : "Pacific Time (US & Canada)"
-    ActiveSupport::TimeZone.new(zone_text)
+    r ? r.time_zone : ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
   end
 
 end

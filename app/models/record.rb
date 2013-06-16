@@ -2,14 +2,14 @@ class Record < ActiveRecord::Base
   belongs_to :user
   attr_accessible :target, :raw, :user_id
   default_scope order 'target DESC'
-  validates_presence_of :raw, :user_id #, :target
+  validates_presence_of :raw, :user_id, :target
 
   def time_zone
     if self.raw && self.raw.match("time zone")
       record = self
     else
       target = self.target || Time.now.utc
-      record = record.user.records.where("raw LIKE ? AND target < ?", '%time zone%', target).limit(1).first
+      record = self.user.records.where("raw LIKE ? AND target < ?", '%time zone%', target).limit(1).first
     end
     if record
       cats = record.cats_from_raw

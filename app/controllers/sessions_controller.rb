@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
       redirect_to target_path
     else
       flash[:notice] = "There was a problem with your email or password."
-      redirect_to action: :new
+      @user = User.new
+      render action: :new
     end
   end
   

@@ -21,7 +21,7 @@
 
 <%= form_for @user do |f| %>
   <% if @user.errors.any? %>
-    <div class="error_messages">
+    <div class="error_messages padding-all margin-bottom white" style="<%= bg_color_now %>">
       <h3>Form is invalid</h3>
       <ul>
         <% for message in @user.errors.full_messages %>
@@ -43,7 +43,7 @@
 
   <div class="input-wrap margin-bottom-small">
     <%= f.label :password_confirmation %>
-    <%= f.password_field :pasword_confirmation, {placeholder: "password confirmation"} %>
+    <%= f.password_field :password_confirmation, {placeholder: "password confirmation"} %>
   </div>
 
   <p><%= f.submit %></p>
