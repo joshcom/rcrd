@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate
-    redirect_to root_url, notice: "Not logged in" if !current_user
+    if !current_user
+      flash[:notice] = "Please log in"
+      session[:desired_path] = request.env['PATH_INFO']
+      redirect_to '/sessions/new' 
+    end
   end
   
 end

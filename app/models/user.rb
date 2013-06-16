@@ -25,4 +25,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def current_time_zone
+    r = self.records.limit(1).first
+    zone = r ? r.time_zone_text : "Pacific Time (US & Canada)"
+    ActiveSupport::TimeZone.new(zone_text)
+  end
+
 end

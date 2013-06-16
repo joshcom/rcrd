@@ -4,41 +4,25 @@ class Record < ActiveRecord::Base
   default_scope order 'target DESC'
   validates_presence_of :raw, :user_id #, :target
 
-  def time_zone_text
+  def time_zone
     if self.raw && self.raw.match("time zone")
       record = self
     else
       target = self.target || Time.now.utc
-      record = Record.where("raw LIKE ? AND target < ?", '%time zone%', target).limit(1).first
+      record = record.user.records.where("raw LIKE ? AND target < ?", '%time zone%', target).limit(1).first
     end
     if record
       cats = record.cats_from_raw
       cats.delete 'time zone' # not the most elegant thing in the world
-      cats.first 
+      zone_text = cats.first 
     else
-      "Pacific Time (US & Canada)" 
+      zone_text = "Pacific Time (US & Canada)" 
     end
-  end
-
-  def time_zone
-    ActiveSupport::TimeZone.new(self.time_zone_text)
+    ActiveSupport::TimeZone.new(zone_text)
   end
 
   def local_target
     self.target.in_time_zone(self.time_zone)
-  end
-
-  def self.current_time_zone_text
-    r = Record.limit(1).first
-    if r
-      r.time_zone_text
-    else
-      "Pacific Time (US & Canada)" 
-    end
-  end
-
-  def self.current_time_zone
-    ActiveSupport::TimeZone.new(self.current_time_zone_text)
   end
 
   def self.get_cats(name)

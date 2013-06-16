@@ -8,15 +8,20 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email], params[:password])
     if user
       cookies.permanent.signed[:user_id] = user.id
-      redirect_to root_url, notice: "Logged in!"
+      target_path = session[:desired_path] || root_url
+      session[:desired_path] = nil
+      flash[:notice] = "Logged in!"
+      redirect_to target_path
     else
-      redirect_to action: :new, notice: "There was a problem with your email or password."
+      flash[:notice] = "There was a problem with your email or password."
+      redirect_to action: :new
     end
   end
   
   def destroy
     cookies.permanent.signed[:user_id] = nil
-    redirect_to root_url, notice: "Logged out"
+    flash[:notice] = "Logged out"
+    redirect_to root_url
   end
 
 end

@@ -33,18 +33,3 @@
 <div class="margin-y padding-all" style="<%= bg_color_now %>">
   <a href="/logout" class="white">Logout</a>
 </div>
-
-<div class="margin-y">
-  <h1>Help</h1>
-  <h2>Time zones</h2>
-  <p>To change time zones, you need to declare them:</p>
-  <div>
-    <%= render partial: "shared/cat", locals: {cat: "time zone", hue: hue_now} %>
-    <%= render partial: "shared/cat", locals: {cat: "Tokyo", hue: hue_now} %>
-  </div>
-  <p>or</p>
-  <div>
-    <%= render partial: "shared/cat", locals: {cat: "time zone", hue: hue_now} %>
-    <%= render partial: "shared/cat", locals: {cat: "Pacific Time (US & Canada)", hue: hue_now} %>
-  </div>
-</div>

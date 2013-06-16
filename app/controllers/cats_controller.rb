@@ -1,5 +1,7 @@
 class CatsController < ApplicationController
 
+  before_filter :authenticate
+
   def show
     @name = params[:id]
     @records = current_user.records.get_cats(@name)
