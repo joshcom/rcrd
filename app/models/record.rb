@@ -25,10 +25,6 @@ class Record < ActiveRecord::Base
     self.target.in_time_zone(self.time_zone)
   end
 
-  def self.get_cats(name)
-    self.where("raw LIKE ?", '%'+name+'%')
-  end
-
   def self.get_cat_count_per_day(num_days, cat)
 
     num_days -= 1
@@ -56,7 +52,7 @@ class Record < ActiveRecord::Base
   end
 
   def cats_from_raw_without_mags
-   return cats_from_raw.map {|cat| cat.sub /^\s*\d+\.*\d*\s*/, '' }
+   cats_from_raw.map {|cat| cat.sub /^\s*\d+\.*\d*\s*/, '' }
   end
 
   def self.get_weekly_frequency_since(date, cat)
@@ -67,7 +63,6 @@ class Record < ActiveRecord::Base
   def hue
    minutes = self.local_target.strftime('%k').to_f * 60.0
    minutes += self.local_target.strftime('%M').to_f
-   ret =  (minutes / 1440.0)  * 360.0
-   return ret
+   (minutes / 1440.0)  * 360.0
   end
 end
