@@ -57,11 +57,14 @@ describe Record do
   end
 
   it "get_trending_cats" do
-    # experimental
+    user = User.create!(email: "whatever@jeff.is", password: "test")
+    one = user.records.create!(raw: "workout, swim", target: Time.now)
+    two = user.records.create!(raw: "restaurant", target: Time.now)
+    expect(Record.get_trending_cats(user)).to include("workout")
+    expect(Record.get_trending_cats(user)).to include("restaurant")
   end
 
   it "get_list_of_cat_frequencies" do
-    # experimental
   end
 
   it "cats_from_raw" do

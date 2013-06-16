@@ -67,16 +67,16 @@ class Record < ActiveRecord::Base
     return days
   end
 
-  def self.get_trending_cats
-    cat_freqs = self.get_list_of_cat_frequencies
+  def self.get_trending_cats(user)
+    cat_freqs = self.get_list_of_cat_frequencies(user)
     cat_freqs.sort_by {|k,v| v}
     return cat_freqs.keys[0..40]
   end
 
-  def self.get_list_of_cat_frequencies
+  def self.get_list_of_cat_frequencies(user)
     # Go through all records
     cat_list = {}
-    Record.all.each do |record|
+    user.records.each do |record|
       record.cats_from_raw_without_mags.each do |cat|
         cat_list[cat] = 0 if !cat_list[cat]
         cat_list[cat] += 1

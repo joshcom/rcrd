@@ -19,7 +19,6 @@
       <div class="field">
         <% #= #f.datetime_select :local_target %>
       </div>
-      <%= f.hidden_field :user_id, :value => 2 %>
       <%= f.submit %>
     <% end %>
     <p>Current time zone: <%= @record.time_zone_text %></p>

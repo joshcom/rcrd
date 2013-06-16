@@ -5,23 +5,23 @@ class RecordsController < ApplicationController
   helper ApplicationHelper 
 
   def index
-    @records = Record.where('target > ?', Date.today - 1.month).order('target DESC')
+    @records = current_user.records.where('target > ?', Date.today - 1.month).order('target DESC')
   end
 
   def show 
-    @record = Record.find params[:id]  
+    @record = current_user.records.find params[:id]  
   end
 
   def new
     @record = current_user.records.new(target: Record.current_time_zone.now)
-    @trending = Record.get_trending_cats || []
-    @last_7_days = Record.where('target > ?', Date.today - 7.days)
+    @trending = [] #Record.get_trending_cats(curr) || []
+    @last_7_days = current_user.records.where('target > ?', Date.today - 7.days)
   end
 
   def create      
     puts params[:record].inspect
-
-    @record = Record.new(params[:record])
+    
+    @record = current_user.records.new(params[:record])
 #    @record.target = Time.now.utc + Record.current_time_zone.utc_offset.seconds    
 
     if @record.save
