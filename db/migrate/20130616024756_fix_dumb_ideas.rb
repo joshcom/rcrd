@@ -1,4 +1,6 @@
 class FixDumbIdeas < ActiveRecord::Migration
+# Dumb ideas have been fixed.
+=begin
   def change 
     drop_table :categories
     drop_table :cats
@@ -14,4 +16,5 @@ class FixDumbIdeas < ActiveRecord::Migration
     remove_column :users, :karma
     remove_column :records, :name
   end
+=end
 end
