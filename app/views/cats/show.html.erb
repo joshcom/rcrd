@@ -12,4 +12,19 @@
   </div>
 </div>
 
+<div class="margin-bottom">
+  <div class="bg-grey small">
+    <% @cat_settings.each do |key, value| %>
+      <p class="padding-all clearfix">
+        <span class="left"><%= key.gsub('_', ' ')  %></span>
+        <% if value %>
+          <span class="right margin-left bold green">on</span>
+        <% else %>
+          <span class="right margin-left grey">off</span>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
 <%= render partial: "shared/records", locals: {records: @records} %>
