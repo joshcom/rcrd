@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index 
-    @num_days = 59  
+    @num_days = 60  
     @cats = []
     if current_user && current_user.email == "gcarpenterv@gmail.com"
       @cats << {name: 'workout', color: '96b4fd', avgs: true}
@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
     @cats.each do |cat|
       cat[:days] = {}
-      cat[:days] = Record.get_cat_count_per_day(@num_days, cat[:name])
+      cat[:days] = current_user.get_cat_count_per_day(@num_days, cat[:name])
 
       if cat.has_key?(:avgs) && cat[:avgs]
         cat[:last_4_weeks] = Record.get_weekly_frequency_since(Date.today - 4.weeks, cat[:name])

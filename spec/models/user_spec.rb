@@ -2,16 +2,46 @@ require "spec_helper"
 
 describe User do
 
-  it "current_time_zone defaults to Pacific Time" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    expect(user.current_time_zone).to eq(ActiveSupport::TimeZone.new("Pacific Time (US & Canada)"))
+  describe "self.authenticate" do
   end
 
-  it "current_time_zone is correct" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    tz = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 5.minutes)
-    one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
-    expect(user.current_time_zone).to eq(ActiveSupport::TimeZone.new("Tokyo"))
+  describe "encrypt_password" do
+  end
+
+  describe "current_time_zone" do
+
+    it "defaults to Pacific Time" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      expect(user.current_time_zone).to eq(ActiveSupport::TimeZone.new("Pacific Time (US & Canada)"))
+    end
+
+    it "is correct under normal conditions" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      tz = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 5.minutes)
+      one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
+      expect(user.current_time_zone).to eq(ActiveSupport::TimeZone.new("Tokyo"))
+    end
+
+  end
+
+  describe "default_time_zone" do
+  end
+
+  describe "get_trending_cats" do
+    it "is correct under normal conditions" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      one = user.records.create!(raw: "workout, swim", target: Time.now)
+      two = user.records.create!(raw: "restaurant", target: Time.now)
+      expect(user.get_trending_cats).to include("workout")
+      expect(user.get_trending_cats).to include("restaurant")
+    end
+  end
+
+  describe "get_list_of_cat_frequencies" do
+  end
+
+  describe "get_cat_count_per_day" do
+    # this badly needs testing
   end
 
 end

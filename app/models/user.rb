@@ -53,5 +53,25 @@ class User < ActiveRecord::Base
     return cat_list
   end
 
+  def get_cat_count_per_day(num_days, cat)
+
+    num_days -= 1
+    query = "SELECT date_trunc('day', (target at time zone 'UTC')) AS day, count(*) AS record_count FROM records WHERE target > ((now() - interval '#{num_days} days') at time zone 'UTC') AND raw LIKE '%#{cat}%' AND user_id = #{self.id} GROUP BY 1 ORDER BY 1"
+    result = ActiveRecord::Base.connection.execute(query)
+#
+    days = {} 
+
+    (Date.today-num_days..Date.today).each do |day|
+      days[day.strftime('%F')] = 0 
+    end
+
+    result.each do |res|
+      date = Date.parse(res['day']).strftime('%F')
+      days[date] = res['record_count']
+    end
+
+    days.keys.sort!
+    return days
+  end
 
 end

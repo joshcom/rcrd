@@ -25,28 +25,6 @@ class Record < ActiveRecord::Base
     self.target.in_time_zone(self.time_zone)
   end
 
-  def self.get_cat_count_per_day(num_days, cat)
-
-    num_days -= 1
-    # note: this encompasses all users...
-    query = "SELECT date_trunc('day', (target at time zone 'PDT')) AS day, count(*) AS record_count FROM records WHERE target > ((now() - interval '#{num_days} days') at time zone 'PDT') AND raw LIKE '%#{cat}%' GROUP BY 1 ORDER BY 1"
-    result = ActiveRecord::Base.connection.execute(query)
-#
-    days = {} 
-
-    (Date.today-num_days..Date.today).each do |day|
-      days[day.strftime('%F')] = 0 
-    end
-
-    result.each do |res|
-      date = Date.parse(res['day']).strftime('%F')
-      days[date] = res['record_count']
-    end
-
-    days.keys.sort!
-    return days
-  end
-
   def cats_from_raw
     (self.raw || '').split(/,/).map {|cat| cat.strip}
   end
@@ -55,6 +33,7 @@ class Record < ActiveRecord::Base
    cats_from_raw.map {|cat| cat.sub /^\s*\d+\.*\d*\s*/, '' }
   end
 
+  # I believe this should be a method on User
   def self.get_weekly_frequency_since(date, cat)
     records = Record.where("target > ? AND raw LIKE ?", date, '%'+cat+'%').count.to_f
     (records / ((Date.today - date).to_f / 7.0)).round(2)

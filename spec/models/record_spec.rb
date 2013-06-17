@@ -19,49 +19,42 @@ describe Record do
     end
   end
 
-  it "correctly returns local_target" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    tz = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 5.minutes)
-    one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
-    expect(one.local_target).to eq(one.target.in_time_zone(ActiveSupport::TimeZone.new("Tokyo")))
+  describe "local_target" do
+    it "runs correctly" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      tz = user.records.create!(raw: "time zone, Tokyo", target: Time.now - 5.minutes)
+      one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
+      expect(one.local_target).to eq(one.target.in_time_zone(ActiveSupport::TimeZone.new("Tokyo")))
+    end
   end
 
-  it "get_cat_count_per_day" do
-    # experimental
+  describe "cats_from_raw" do
+    it "is correct under normal conditions" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
+      expect(one.cats_from_raw).to eq(['workout', 'swim', '3200 yards'])
+    end
   end
 
-  it "get_trending_cats" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    one = user.records.create!(raw: "workout, swim", target: Time.now)
-    two = user.records.create!(raw: "restaurant", target: Time.now)
-    expect(user.get_trending_cats).to include("workout")
-    expect(user.get_trending_cats).to include("restaurant")
+  describe "cats_from_raw_without_mags" do
+    it "works normally" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      one = user.records.create!(raw: "1.5 things, 3200 yards, stuff 1.0", target: Time.now)
+      expect(one.cats_from_raw_without_mags).to eq(['things', 'yards', 'stuff 1.0'])
+    end
   end
 
-  it "get_list_of_cat_frequencies" do
-  end
+  describe "hue" do
+    it "is correct in normal conditions" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
+  
+      minutes = one.local_target.strftime('%k').to_f * 60.0
+      minutes += one.local_target.strftime('%M').to_f
+      test_hue = (minutes / 1440.0) * 360.0
 
-  it "correctly returns cats_from_raw" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
-    expect(one.cats_from_raw).to eq(['workout', 'swim', '3200 yards'])
-  end
-
-  it "cats_from_raw_without_mags" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    one = user.records.create!(raw: "1.5 things, 3200 yards, stuff 1.0", target: Time.now)
-    expect(one.cats_from_raw_without_mags).to eq(['things', 'yards', 'stuff 1.0'])
-  end
-
-  it "calculates hue correctly" do
-    user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
-    one = user.records.create!(raw: "workout, swim, 3200 yards", target: Time.now)
-
-    minutes = one.local_target.strftime('%k').to_f * 60.0
-    minutes += one.local_target.strftime('%M').to_f
-    test_hue = (minutes / 1440.0) * 360.0
-
-    expect(one.hue).to eq(test_hue)
+      expect(one.hue).to eq(test_hue)
+    end
   end
 
 
