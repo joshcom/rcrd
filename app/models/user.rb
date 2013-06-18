@@ -74,4 +74,25 @@ class User < ActiveRecord::Base
     return days
   end
 
+  def binary_cat_existence(num_days, cat)
+    days = {} 
+
+    past_date = self.current_time_zone.today - (num_days - 1).days 
+    today = self.current_time_zone.today
+    (past_date..today).each do |day|
+      days[day.strftime('%F')] = false 
+    end
+
+    records = self.records.where('target > ? AND raw LIKE ?', Date.today - (num_days - 2).days, '%'+cat+'%')
+
+    records.each do |records|
+      this_key = records.local_target.strftime('%F')
+      if days.has_key? this_key 
+        days[this_key] = true
+      end
+    end
+
+    days
+  end
+
 end

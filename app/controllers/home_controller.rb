@@ -19,12 +19,12 @@ class HomeController < ApplicationController
 
     @cats.each do |cat|
       cat[:days] = {}
-      cat[:days] = current_user.get_cat_count_per_day(@num_days, cat[:name])
+      cat[:days] = current_user.binary_cat_existence(@num_days, cat[:name])
 
       if cat.has_key?(:avgs) && cat[:avgs]
-        cat[:last_4_weeks] = Record.get_weekly_frequency_since(Date.today - 4.weeks, cat[:name])
-        cat[:last_8_weeks] = Record.get_weekly_frequency_since(Date.today - 8.weeks, cat[:name])
-        cat[:last_16_weeks] = Record.get_weekly_frequency_since(Date.today - 16.weeks, cat[:name])
+        cat[:last_4_weeks] = current_user.records.get_weekly_frequency_since(Date.today - 4.weeks, cat[:name])
+        cat[:last_8_weeks] = current_user.records.get_weekly_frequency_since(Date.today - 8.weeks, cat[:name])
+        cat[:last_16_weeks] = current_user.records.get_weekly_frequency_since(Date.today - 16.weeks, cat[:name])
       end
     end
   end
