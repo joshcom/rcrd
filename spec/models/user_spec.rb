@@ -55,8 +55,4 @@ describe User do
     end
   end
 
-  describe "get_cat_count_per_day" do
-    # this badly needs testing
-  end
-
 end
