@@ -3,12 +3,11 @@
 
 # rcrd
 
+[http://rcrd.org/](http://rcrd.org/)
+
 rcrd is a tool I built to track habits, like exercise or drinking.
 
-## How Time Zones work
-
-- The time zone of a record is determined by going back in time and finding the first most recent record that contains a "time zone" cat.
-- A record with the cats "time zone", "Tokyo" - for instance, will set all subsequent records time zones to Tokyo (until another record containing "time zone" is entered).
+[http://rcrd.org/guide](http://rcrd.org/guide)
 
 ## Ideas
 
