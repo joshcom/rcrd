@@ -3,8 +3,6 @@
 
 # rcrd
 
-[http://rcrd.org/](http://rcrd.org/)
-
 rcrd is a tool I built to track habits, like exercise or drinking.
 
 [http://rcrd.org/guide](http://rcrd.org/guide)
