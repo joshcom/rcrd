@@ -3,9 +3,20 @@ require "spec_helper"
 describe User do
 
   describe "self.authenticate" do
+    it "works when a user exists" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      expect(User.authenticate("whatever@jeff.is", "test")).to eq(user)
+    end
+    it "works when a user does not exist" do
+      expect(User.authenticate("whatever@jeff.is", "test")).to eq(nil)
+    end
   end
 
   describe "encrypt_password" do
+    it "encrypts before save" do
+      user = User.create!(email: "whatever@jeff.is", password: "test", password_confirmation: "test")
+      user.password_hash.should_not eq(hash)
+    end
   end
 
   describe "current_time_zone" do

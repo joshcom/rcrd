@@ -53,9 +53,8 @@ describe Record do
       minutes += one.local_target.strftime('%M').to_f
       test_hue = (minutes / 1440.0) * 360.0
 
-      expect(one.hue).to eq(test_hue)
+      one.hue.should eq(test_hue)
     end
   end
-
 
 end
